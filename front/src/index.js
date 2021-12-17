@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 // IMPORT DE NOS ROUTES
 import App from "./App";
 import Connexion from "./routes/Connexion";
+import AccountCreation from "./routes/AccountCreation";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="connexion" element={<Connexion />} />
+        <Route path="creation" element={<AccountCreation />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
