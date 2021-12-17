@@ -8,6 +8,7 @@ function App() {
     <CurrentUserProvider>
       <Link to="/connexion">Connexion</Link>
       <Link to="/creation">Creation</Link>
+      <Link to="/create-game">Créer un jeu</Link>
     </CurrentUserProvider>
   );
 }
