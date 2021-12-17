@@ -6,14 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 
 // IMPORT DE NOS ROUTES
 import App from "./App";
-import Test from "./routes/test";
+import Connexion from "./routes/Connexion";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="test" element={<Test />} />
+        <Route path="connexion" element={<Connexion />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
