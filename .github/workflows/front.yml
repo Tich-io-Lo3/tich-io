@@ -1,0 +1,34 @@
+name: Build React
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  front:
+    defaults:
+      run:
+        working-directory: ./front
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup NodeJS
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+    - run: npm install
+    - run: npm run build
+    - name: Create SSH
+      run: mkdir ~/.ssh
+    - name: Install SSH Key
+      run: sudo echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+    - name: Setup Perm
+      run: sudo chmod 600 ~/.ssh/id_rsa
+    - name: Adding Known Hosts
+      run: sudo ssh-keyscan -H -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+    - name: Deploy with rsync
+      run: rsync -avz -e 'ssh -p 22 -i ~/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html

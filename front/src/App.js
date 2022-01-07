@@ -6,8 +6,13 @@ import { CurrentUserProvider } from "./providers/CurrentUserProvider";
 function App() {
   return (
     <CurrentUserProvider>
-      <Link to="/connexion">Connexion</Link>
-      <Link to="/creation">Creation</Link>
+      <Link to="/create-game">Create game</Link>
+      <br />
+      <Link to="/connexion">Sign in</Link>
+      <br />
+      <Link to="/creation">Sign up</Link>
+      <br />
+      <Link to="/games">Games</Link>
     </CurrentUserProvider>
   );
 }
