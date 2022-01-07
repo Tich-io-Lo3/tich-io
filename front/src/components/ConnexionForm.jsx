@@ -44,7 +44,7 @@ const ConnexionForm = () => {
       />
       <br />
       <button type="button" onClick={checkConnexionInfo}>
-        Connexion
+        Sign in
       </button>
     </form>
   );
