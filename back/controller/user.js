@@ -4,6 +4,18 @@ module.exports = {
   get_all: (req, res) => {
     return db.User.findAll({}).then((users) => res.json(users));
   },
+  load_by_id: (req, res, next) => {
+    return db.User.findByPk(req.params.user_id)
+      .then((user) => {
+        if (!user) {
+          throw { status: 404, message: "Requested user not found" };
+        }
+        req.user = user;
+        return next();
+      })
+      .catch(next);
+  },
+
   delete_by_id: (req, res, next) => {
     return db.User.findByPk(req.params.user_id)
       .then((user) => {

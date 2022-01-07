@@ -3,7 +3,7 @@ module.exports = (sequelize) => {
   class Game extends Sequelize.Model {
     static associate(db) {
       Game.hasMany(db.Distribution, { onDelete: "cascade" });
-      Game.hasOne(db.User, { as: Creator, onDelete: "cascade" });
+      Game.hasOne(db.User, { onDelete: "cascade" });
     }
   }
 

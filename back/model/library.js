@@ -3,8 +3,8 @@ const { Sequelize } = require("sequelize");
 module.exports = (sequelize) => {
   class Library extends Sequelize.Model {
     static associate(db) {
-      Library.hasMany(db.User, { onDelete: "cascade" });
-      Library.hasMany(db.Game, { onDelete: "cascade" });
+      Library.belongsToMany(db.User, { through: Library, onDelete: "cascade" });
+      Library.belongsToMany(db.Game, { through: Library, onDelete: "cascade" });
     }
   }
 

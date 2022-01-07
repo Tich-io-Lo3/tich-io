@@ -1,4 +1,4 @@
-var createError = require("http-errors");
+/* var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -38,3 +38,30 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 module.exports = app;
+ */
+
+const express = require("express"),
+  bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.json());
+
+// register routes
+require("./routes")(app);
+
+// register error handling middleware
+app.use((err, req, res) => {
+  if (err.status === undefined) {
+    return res.status(500).send(err.message);
+  } else {
+    return res.status(err.status).send(err.message);
+  }
+});
+
+// launch server
+const server = app.listen(3000, () => {
+  const host = server.address().address;
+  const port = server.address().port;
+  console.log("App listening at http://%s:%s", host, port);
+});
