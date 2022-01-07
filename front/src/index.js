@@ -12,6 +12,7 @@ import Connexion from "./routes/Connexion";
 import CreateGame from "./routes/CreateGame";
 import UpdateGame from "./routes/UpdateGame";
 import CreateAccount from "./components/CreateAccount";
+import UserDetail from "./components/UserDetail";
 import Games from "./components/Games";
 import GameDetail from "./components/GameDetail";
 
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route path="/creation" element={<CreateAccount />} />
         <Route path="/games" element={<Games />} />
         <Route path="/games/:gameId" element={<GameDetail />} />
+        <Route path="/users/:userId" element={<UserDetail />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

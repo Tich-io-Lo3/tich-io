@@ -26,7 +26,7 @@ const CreateAccount = () => {
 
   return (
     <form>
-      <label htmlFor="username">Nom d&apos;utilisateur :</label>
+      <label htmlFor="username">Username :</label>
       <input
         type="text"
         name="username"
@@ -34,7 +34,7 @@ const CreateAccount = () => {
         onChange={(e) => setUsername(e.target.value)}
       />
       <br />
-      <label htmlFor="password">Mot de passe :</label>
+      <label htmlFor="password">Password :</label>
       <input
         type="password"
         name="password"
@@ -42,7 +42,7 @@ const CreateAccount = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <br />
-      <label htmlFor="confirmPassword">Confirmez le mot de passe :</label>
+      <label htmlFor="confirmPassword">Confirm password :</label>
       <input
         type="password"
         name="confirmPassword"

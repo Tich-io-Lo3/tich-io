@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const GameDetail = () => {
   let { gameId } = useParams();
@@ -10,11 +10,14 @@ const GameDetail = () => {
 
   return (
     <div>
-      <p>Détails</p>
+      <p>Detail</p>
       <p>{game?.title}</p>
       <p>{game?.description}</p>
       <p>{game?.imageFolder}</p>
-
+      <p>
+        {game?.creator?.name}
+        <Link to={`/users/${game?.creator?.id}`}>User Page</Link>
+      </p>
       <p>Download links :</p>
       <p>{game?.windowsFile}</p>
       <p>{game?.macOsFile}</p>
@@ -33,6 +36,7 @@ const games = [
     windowsFile: "PATH DU JEU WINDOWS",
     macOsFile: "PATH DU JEU MACOS",
     linuxFile: "PATH DU JEU LINUX",
+    creator: { id: 1, name: "Tiego" },
   },
   {
     id: 2,
@@ -42,6 +46,7 @@ const games = [
     windowsFile: "PATH DU JEU WINDOWS",
     macOsFile: "PATH DU JEU MACOS",
     linuxFile: "PATH DU JEU LINUX",
+    creator: { id: 2, name: "Tiego" },
   },
   {
     id: 3,
@@ -51,6 +56,7 @@ const games = [
     windowsFile: "PATH DU JEU WINDOWS",
     macOsFile: "PATH DU JEU MACOS",
     linuxFile: "PATH DU JEU LINUX",
+    creator: { id: 3, name: "Tiego" },
   },
   {
     id: 4,
@@ -60,6 +66,7 @@ const games = [
     windowsFile: "PATH DU JEU WINDOWS",
     macOsFile: "PATH DU JEU MACOS",
     linuxFile: "PATH DU JEU LINUX",
+    creator: { id: 4, name: "Tiego" },
   },
 ];
 
