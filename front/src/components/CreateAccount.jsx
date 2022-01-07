@@ -26,7 +26,7 @@ const CreateAccount = () => {
 
   return (
     <form>
-      <label htmlFor="username">Nom d`&apos;`utilisateur :</label>
+      <label htmlFor="username">Nom d&apos;utilisateur :</label>
       <input
         type="text"
         name="username"
@@ -60,7 +60,7 @@ const CreateAccount = () => {
     if (allUsers.filter((user) => user.username === username).length === 0) {
       if (password === confirmPassword) {
         //TODO create user
-        console.log("COmpte créé");
+        console.log("Compte créé");
       } else {
         alert("Les mots de passes ne correspondent pas !");
       }

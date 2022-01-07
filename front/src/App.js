@@ -6,9 +6,9 @@ import { CurrentUserProvider } from "./providers/CurrentUserProvider";
 function App() {
   return (
     <CurrentUserProvider>
-      <Link to="/connexion">Connexion</Link>
-      <Link to="/creation">Creation</Link>
-      <Link to="/create-game">Créer un jeu</Link>
+      <Link to="/connexion">Sign in</Link>
+      <Link to="/creation">Sign up</Link>
+      <Link to="/games">Games</Link>
     </CurrentUserProvider>
   );
 }
