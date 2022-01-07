@@ -25,12 +25,12 @@ jobs:
     - name: Create SSH
       run: mkdir ~/.ssh
     - name: Install SSH Key
-      run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
     - name: Setup Perm
-      run: chmod 600 ~/.ssh/id_rsa
+      run: chmod 600 $HOME/.ssh/id_rsa
     - name: Adding Known Hosts
-      run: sudo ssh-keyscan -H -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      run: sudo ssh-keyscan -H -p 22 ${{ secrets.SSH_HOST }} >> $HOME/.ssh/known_hosts
     - run: sudo ls ~/.ssh
     - run: ls ~/.ssh
     - name: Deploy with rsync
-      run: sudo rsync -avz -e 'ssh -p 22 -i ~/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
+      run: sudo rsync -avz -e 'ssh -p 22 -i $HOME/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
