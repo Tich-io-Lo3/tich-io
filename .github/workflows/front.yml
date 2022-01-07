@@ -32,11 +32,11 @@ jobs:
       run: sudo ssh-keyscan -H -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     - run: sudo ls ~/.ssh
     - run: ls ~/.ssh
-    - run: sudo ls ~/.ssh/
-    - run: sudo ls sheel/.ssh/
     - run: sudo who
     - run: who
     - run: sudo whoami
     - run: whoami
+    - run: sudo ls ~/.ssh/
+    - run: sudo ls shell/.ssh/
     - name: Deploy with rsync
-      run: sudo rsync -avz -e 'ssh -p 22 -i runner/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
+      run: sudo rsync -avz -e 'ssh -p 22 -i shell/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
