@@ -33,8 +33,6 @@ jobs:
     - run: sudo ls ~/.ssh
     - run: ls ~/.ssh
     - run: sudo ls ~/.ssh/
-    - run: sudo ls runner/.ssh/
-    - run: sudo ls root/.ssh/
     - run: sudo ls sheel/.ssh/
     - run: sudo who
     - run: who
