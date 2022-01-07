@@ -1,10 +1,10 @@
 const user_ctrl = require("../controller/user");
 const link_ctrl = require("../controller/link");
-module.export = [
+module.exports = [
   {
     url: "/user/:user_id/link",
     method: "get",
-    func: [user_ctrl.load_by_id, link_ctrl.get_all_by_user_id],
+    func: [user_ctrl.load_by_id, link_ctrl.get_all],
   },
   {
     url: "/user/:user_id/link/:link_id",

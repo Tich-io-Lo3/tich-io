@@ -1,5 +1,5 @@
 const db = require("../model");
-module.export = {
+module.exports = {
   get_all: (req, res) => {
     return req.game.findAll({}).then((games) => res.json(games));
   },

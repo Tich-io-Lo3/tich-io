@@ -1,6 +1,6 @@
 const image_ctrl = require("../controller/image");
 const game_ctrl = require("../controller/game");
-module.export = [
+module.exports = [
   {
     url: "/game/:game_id/images",
     method: "get",

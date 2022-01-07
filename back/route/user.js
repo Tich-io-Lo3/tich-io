@@ -1,5 +1,5 @@
 const user_ctrl = require("../controller/user");
-module.export = [
+module.exports = [
   {
     url: "/users",
     method: "get",

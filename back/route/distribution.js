@@ -1,6 +1,6 @@
 const distribution_ctrl = require("../controller/distribution");
 const game_ctrl = require("../controller/game");
-module.export = [
+module.exports = [
   {
     url: "/game/:game_id/distributions",
     method: "get",
@@ -8,7 +8,7 @@ module.export = [
   },
   {
     url: "/game/:game_id/distribution/:distribution_id",
-    methode: "get",
+    method: "get",
     func: [game_ctrl.load_by_id, distribution_ctrl.get_by_id],
   },
   {

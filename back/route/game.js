@@ -1,5 +1,5 @@
 const game_ctrl = require("../controller/game");
-module.export = [
+module.exports = [
   {
     url: "/games",
     method: "get",

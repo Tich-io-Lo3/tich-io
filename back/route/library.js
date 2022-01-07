@@ -12,11 +12,12 @@ module.exports = [
     method: "post",
     func: [user_ctrl.load_by_id, library_ctrl.create],
   },
-  {
+  //TODO
+  /*   {
     url: "/game/:game_id/users",
     method: "get",
     func: [game_ctrl.load_by_id, library_ctrl],
-  },
+  }, */
   {
     url: "/user/:user_id/game/:game_id",
     method: "delete",

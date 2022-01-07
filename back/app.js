@@ -48,16 +48,16 @@ const app = express();
 app.use(bodyParser.json());
 
 // register routes
-require("./routes")(app);
+require("./route")(app);
 
 // register error handling middleware
-app.use((err, req, res) => {
+/* app.use((err, req, res) => {
   if (err.status === undefined) {
     return res.status(500).send(err.message);
   } else {
     return res.status(err.status).send(err.message);
   }
-});
+}); */
 
 // launch server
 const server = app.listen(3000, () => {
