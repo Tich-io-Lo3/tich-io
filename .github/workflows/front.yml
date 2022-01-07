@@ -32,6 +32,6 @@ jobs:
       run: sudo ssh-keyscan -H -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     - run: sudo ls ~/.ssh
     - run: ls ~/.ssh
-    - run: ls /root/.ssh/
+    - run: sudo ls /root/.ssh/
     - name: Deploy with rsync
       run: sudo rsync -avz -e 'ssh -p 22 -i /root/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
