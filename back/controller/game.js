@@ -1,10 +1,22 @@
-const db = require("../models");
-module.export = {
+const db = require("../model");
+module.exports = {
   get_all: (req, res) => {
-    return db.Game.findAll({}).then((games) => res.json(games));
+    return req.game.findAll({}).then((games) => res.json(games));
+  },
+  load_by_id: (req, res, next) => {
+    return db.Game.findByPk(req.params.game_id)
+      .then((game) => {
+        if (!game) {
+          throw { status: 404, message: "Requested game not found" };
+        }
+        req.game = game;
+        return next();
+      })
+      .catch(next);
   },
   delete_by_id: (req, res, next) => {
-    return db.Game.findByPk(req.params.game_id)
+    return req.game
+      .findByPk(req.params.game_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Game not found" };
@@ -15,7 +27,8 @@ module.export = {
       .catch(next);
   },
   get_by_id: (req, res, next) => {
-    return db.Game.findByPk(req.params.game_id)
+    return req.game
+      .findByPk(req.params.game_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Person not found" };
@@ -25,12 +38,14 @@ module.export = {
       .catch(next);
   },
   create: (req, res, next) => {
-    return db.Game.create(req.body)
+    return req.game
+      .create(req.body)
       .then((game) => res.json(game))
       .catch(next);
   },
   update_by_id: (req, res, next) => {
-    return db.Game.findByPk(req.params.group_id)
+    return req.game
+      .findByPk(req.params.group_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Game not found" };

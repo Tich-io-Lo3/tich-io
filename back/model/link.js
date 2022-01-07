@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
   Link.init(
     {
       link: DataTypes.STRING,
-      service: DataTypes.Enum("Twitter", "Facebook", "Reddit"),
+      service: DataTypes.ENUM("Twitter", "Facebook", "Reddit"),
     },
     {
       sequelize,
