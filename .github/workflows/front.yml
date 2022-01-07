@@ -22,6 +22,7 @@ jobs:
         node-version: 14
     - run: npm install
     - run: npm run build
+    - run: apt-get install -y rsync
     - name: Create SSH
       run: mkdir ~/.ssh
     - name: Install SSH Key
