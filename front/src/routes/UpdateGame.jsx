@@ -7,15 +7,6 @@ const UpdateGame = () => {
 
   const title = new URLSearchParams(window.location.search).get("title");
 
-  const game = {
-    title: "",
-    description: "",
-    //IMAGES
-    windowsFile: "",
-    macOsFile: "",
-    linuxFile: "",
-  };
-
   return (
     <main
       style={{
