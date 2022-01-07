@@ -6,8 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 
 // IMPORT DE NOS ROUTES
 import App from "./App";
+
 import Connexion from "./routes/Connexion";
 import AccountCreation from "./routes/AccountCreation";
+import CreateGame from "./routes/CreateGame";
+import UpdateGame from "./routes/UpdateGame";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +19,8 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="connexion" element={<Connexion />} />
         <Route path="creation" element={<AccountCreation />} />
+        <Route path="create-game" element={<CreateGame />} />
+        <Route path="update-game" element={<UpdateGame />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
