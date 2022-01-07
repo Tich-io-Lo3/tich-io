@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
   get_all: (req, res, next) => {
     return req.game
       .getDistributions({
