@@ -33,9 +33,12 @@ jobs:
     - run: sudo ls ~/.ssh
     - run: ls ~/.ssh
     - run: sudo ls ~/.ssh/
+    - run: sudo ls runner/.ssh/
+    - run: sudo ls root/.ssh/
+    - run: sudo ls sheel/.ssh/
     - run: sudo who
     - run: who
     - run: sudo whoami
     - run: whoami
     - name: Deploy with rsync
-      run: sudo rsync -avz -e 'ssh -p 22 -i ~/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
+      run: sudo rsync -avz -e 'ssh -p 22 -i runner/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:/var/www/html/
