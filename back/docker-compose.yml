@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.5
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+  backend:
+    image: ghcr.io/tich-io-lo3/tich-io:latest
+    environment:  
+      - NODE_ENV=production
+      - BDD_URL=mariadb://tich-io:tich-io@database/database
+      - PORT=3630
+      - BUCKET_NAME=tich-io
+      - S3_ID=123
+      - S3_TOKEN=abc
+      - S3_DOMAIN=s3:8000
+    ports:
+      - "3630:3630"
+    labels:
+      - "traefik.http.routers.backend.rule=Host(`api.tich-io.local`)"
+  database:
+    image: mariadb:10.6
+    ports:
+      - 3631:3306
+    environment:
+      - MYSQL_DATABASE=database
+      - MYSQL_USER=tich
+      - MYSQL_PASSWORD=tich-io
+      - MYSQL_ROOT_PASSWORD=tich-io
+  s3:
+    image: fingershock/fakes3
+    ports:
+      - 8000:8000

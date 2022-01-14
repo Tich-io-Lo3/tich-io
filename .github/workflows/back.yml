@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: /tich-io-lo3/tich-io:last
   CONTAINER: nodejs-image
 
 jobs:
@@ -74,16 +74,9 @@ jobs:
       - name: Pull latest container
         run: |
           ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker pull ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:latest"
-      - name: Stop deployed container
+      - name: Rebuild deployed container
         continue-on-error: true
         run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker stop ${{env.CONTAINER}}"
-      - name: Remove deployed container
-        continue-on-error: true
-        run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker rm ${{env.CONTAINER}}"
-      - name: Start docker container
-        run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker run -p 8080:8080 -d --name=${{env.CONTAINER}} ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:latest"
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker-compose up --detach --build"
       - name: Logout from the GitHub Packages Docker Registry
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker logout ${{env.REGISTRY}}"
