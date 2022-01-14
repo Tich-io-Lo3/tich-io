@@ -25,9 +25,9 @@ services:
       - S3_TOKEN=abc
       - S3_DOMAIN=s3:8000
     ports:
-      - "3630:3630"
+      - 3630:8080
     labels:
-      - "traefik.http.routers.backend.rule=Host(`api.tich-io.local`)"
+      - "traefik.http.routers.backend.rule=Host(`api.26.muffin.pm`)"
   database:
     image: mariadb:10.6
     ports:
