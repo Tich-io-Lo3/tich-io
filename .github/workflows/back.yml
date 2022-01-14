@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: tich-io-lo3/tich-io:last
+  IMAGE_NAME: tich-io-lo3/tich-io
   CONTAINER: nodejs-image
 
 jobs:
