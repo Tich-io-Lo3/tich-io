@@ -19,13 +19,13 @@ services:
     environment:  
       - NODE_ENV=production
       - BDD_URL=mariadb://tich-io:tich-io@database/database
-      - PORT=3630
+      - PORT=8080
       - BUCKET_NAME=tich-io
       - S3_ID=123
       - S3_TOKEN=abc
       - S3_DOMAIN=s3:8000
     ports:
-      - 3630:8080
+      - 8080:8080
     labels:
       - "traefik.http.routers.backend.rule=Host(`api.26.muffin.pm`)"
   database:
