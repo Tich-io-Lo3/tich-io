@@ -25,7 +25,7 @@ services:
       - S3_TOKEN=abc
       - S3_DOMAIN=s3:8000
     ports:
-      - 8080:3630
+      - 3630:3630
     labels:
       - "traefik.http.routers.backend.rule=Host(`api.26.muffin.pm`)"
   database:
