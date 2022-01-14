@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes } = require("sequelize");
-module.exports = (sequelize) => {
+const {Sequelize, DataTypes} = require("sequelize");
+module.exports = sequelize => {
   class User extends Sequelize.Model {
     static associate(db) {
       User.hasMany(db.Link);
@@ -7,16 +7,10 @@ module.exports = (sequelize) => {
     }
   }
 
-  User.init(
-    {
-      description: DataTypes.STRING,
-      password: DataTypes.STRING,
-    },
-    {
-      sequelize,
-      modelName: "User",
-    }
-  );
+  User.init({
+    name: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {sequelize, modelName: "User"});
 
   return User;
 };

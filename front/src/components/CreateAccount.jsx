@@ -1,28 +1,18 @@
-import React, { useState } from "react";
-
-const allUsers = [
-  //TODO getAllUsers()
-  {
-    id: 1,
-    username: "tiego",
-    password: "123",
-  },
-  {
-    id: 2,
-    username: "plante",
-    password: "verte",
-  },
-  {
-    id: 3,
-    username: "monkey",
-    password: "enzo",
-  },
-];
+import React, { useState, useEffect } from "react";
+import { useAPI } from "../providers/ApiProviders";
 
 const CreateAccount = () => {
+  const { useFetch, API } = useAPI();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    useFetch(() => {
+      return API.getUsers();
+    }).then((data) => setAllUsers(data));
+  }, []);
 
   return (
     <form>
@@ -51,7 +41,7 @@ const CreateAccount = () => {
       />
       <br />
       <button type="button" onClick={checkInfo}>
-        Connexion
+        Sign up
       </button>
     </form>
   );
@@ -59,8 +49,9 @@ const CreateAccount = () => {
   function checkInfo() {
     if (allUsers.filter((user) => user.username === username).length === 0) {
       if (password === confirmPassword) {
-        //TODO create user
-        console.log("Compte créé");
+        useFetch(() => {
+          return API.createUser(username, password);
+        });
       } else {
         alert("Les mots de passes ne correspondent pas !");
       }

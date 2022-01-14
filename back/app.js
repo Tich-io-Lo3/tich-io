@@ -40,11 +40,12 @@ app.use(function (err, req, res, next) {
 module.exports = app;
  */
 
+const cors = require("cors");
 const express = require("express"),
   bodyParser = require("body-parser");
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 
 // register routes
