@@ -8,23 +8,24 @@ import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 
 import Connexion from "./routes/Connexion";
+
 import CreateGame from "./routes/CreateGame";
 import UpdateGame from "./routes/UpdateGame";
-import GameDetail from "./components/GameDetail";
-import Games from "./components/Games";
 import CreateAccount from "./components/CreateAccount";
+import Games from "./components/Games";
+import GameDetail from "./components/GameDetail";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="create-game" element={<CreateGame />} />
+        <Route path="update-game" element={<UpdateGame />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/creation" element={<CreateAccount />} />
         <Route path="/games" element={<Games />} />
         <Route path="/games/:gameId" element={<GameDetail />} />
-        <Route path="update-game" element={<UpdateGame />} />
-        <Route path="create-game" element={<CreateGame />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
