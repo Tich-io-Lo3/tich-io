@@ -79,6 +79,6 @@ jobs:
       - name: Rebuild deployed container
         continue-on-error: true
         run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker-compose up --detach --build"
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker-compose up --detach --build"
       - name: Logout from the GitHub Packages Docker Registry
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "docker logout ${{env.REGISTRY}}"
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker logout ${{env.REGISTRY}}"
