@@ -1,18 +1,26 @@
-# Conteneur de dev
-FROM node:14 as runner
-ENV NODE_ENV=development
+FROM node:14-alpine
 
-WORKDIR /app
-COPY ./ /app
+# Add tool which will fix init process
+RUN apk add dumb-init
 
-EXPOSE 3630
-CMD ["npm", "run", "dev"]
+# Optimise for production
+ENV NODE_ENV production
 
-# Conteneur de prod
-FROM runner as builder
-ENV NODE_ENV=production
+# Create app directory
+WORKDIR /usr/src/app
 
-COPY package*.json ./
-RUN npm install
+# Copy app files
+COPY --chown=node:node . /usr/src/app
 
-CMD ["npm", "start"]
+# Install only production dependencies from lock file
+RUN npm ci --only=production
+
+# Install only production dependencies
+RUN npm ci --only=production
+
+# friends don’t let friends run containers as root!
+USER node
+
+# Make port 8080 accessible outside of the container
+EXPOSE 8080
+CMD ["dumb-init", "node", "app.js" ]

@@ -4,8 +4,9 @@ const UpdateGame = () => {
   const [windowsChecked, setWindowsChecked] = useState(false);
   const [macosChecked, setMacosChecked] = useState(false);
   const [linuxChecked, setLinuxChecked] = useState(false);
-
-  const title = new URLSearchParams(window.location.search).get("title");
+  const [title, setTitle] = useState(
+    new URLSearchParams(window.location.search).get("title")
+  );
 
   return (
     <main
@@ -18,7 +19,7 @@ const UpdateGame = () => {
         minHeight: "100vh",
       }}
     >
-      <h2>Édition d&apos;un jeu</h2>
+      <h2>Game modification</h2>
       <form
         style={{
           display: "flex",
@@ -26,16 +27,23 @@ const UpdateGame = () => {
           justifyContent: "center",
         }}
       >
-        <label htmlFor="titre">
-          Titre :
-          <input type="text" id="titre" name="title" value={title} required />
+        <label htmlFor="title">
+          Title :
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </label>
         <label>
           Description :
           <input type="text" id="description" name="description" required />
         </label>
         <label>
-          Images de votre jeu :
+          Game images :
           <input
             type="file"
             id="images"
@@ -45,45 +53,39 @@ const UpdateGame = () => {
           />
         </label>
 
-        <h4 style={{ marginBottom: 0 }}>
-          Dans quelle(s) version(s) votre jeu est-il disponible ?
-        </h4>
+        <h4 style={{ marginBottom: 0 }}>On which OS is your game available?</h4>
         <label>
           <input
             type="checkbox"
             id="windows"
-            onClick={() => setWindowsChecked(!windowsChecked)}
+            onChange={() => setWindowsChecked(!windowsChecked)}
             checked={windowsChecked}
           />
           Windows
         </label>
-        {windowsChecked ? (
+        {windowsChecked && (
           <input type="file" id="windows" name="windows" required />
-        ) : null}
+        )}
         <label>
           <input
             type="checkbox"
             id="macos"
-            onClick={() => setMacosChecked(!macosChecked)}
+            onChange={() => setMacosChecked(!macosChecked)}
             checked={macosChecked}
           />
           MacOS
         </label>
-        {macosChecked ? (
-          <input type="file" id="macos" name="macos" required />
-        ) : null}
+        {macosChecked && <input type="file" id="macos" name="macos" required />}
         <label>
           <input
             type="checkbox"
             id="linux"
-            onClick={() => setLinuxChecked(!linuxChecked)}
+            onChange={() => setLinuxChecked(!linuxChecked)}
             checked={linuxChecked}
           />
           Linux
         </label>
-        {linuxChecked ? (
-          <input type="file" id="linux" name="linux" required />
-        ) : null}
+        {linuxChecked && <input type="file" id="linux" name="linux" required />}
 
         <input
           style={{ alignSelf: "center" }}

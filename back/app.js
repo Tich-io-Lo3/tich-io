@@ -23,6 +23,9 @@ const s3 = new AWS.S3({
 app.use(cors());
 app.use(express.json());
 
-app.listen(process.env.PORT || 3630, () => {
-  console.log(`Serveur lancé sur le port ${process.env.PORT || 3630}`);
+// launch server
+const server = app.listen(process.env.PORT || 3630, () => {
+  const host = server.address().address;
+  const port = server.address().port;
+  console.log("App listening at http://%s:%s", host, port);
 });

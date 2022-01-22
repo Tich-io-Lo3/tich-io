@@ -9,8 +9,8 @@ import App from "./App";
 
 import Connexion from "./routes/Connexion";
 
-import CreateGame from "./routes/CreateGame";
-import UpdateGame from "./routes/UpdateGame";
+import CreateGame from "./components/CreateGame";
+import UpdateGame from "./components/UpdateGame";
 import CreateAccount from "./components/CreateAccount";
 import UserDetail from "./components/UserDetail";
 import Games from "./components/Games";
