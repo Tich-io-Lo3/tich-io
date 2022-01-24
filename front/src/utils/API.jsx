@@ -3,7 +3,7 @@ const JSON_HEADERS = {
   "Content-Type": "application/json",
 };
 
-const url_prefix = "http://localhost:8080";
+const url_prefix = "http://localhost:3630";
 
 const API = {
   getUsers: () => {

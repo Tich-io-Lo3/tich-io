@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import "./App.css";
+import { CurrentUserProvider } from "./providers/CurrentUserProvider";
 
 function App() {
   return (
@@ -22,13 +23,13 @@ function App() {
           Create game
         </Link>
         <Link
-          to="/connexion"
+          to="/signin"
           style={{ textDecoration: "none", fontWeight: "bold", color: "black" }}
         >
           Sign in
         </Link>
         <Link
-          to="/creation"
+          to="/signup"
           style={{ textDecoration: "none", fontWeight: "bold", color: "black" }}
         >
           Sign up

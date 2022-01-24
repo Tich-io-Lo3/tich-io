@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAPI } from "../providers/ApiProviders";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
+  const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -51,7 +53,7 @@ const CreateAccount = () => {
       if (password === confirmPassword) {
         useFetch(() => {
           return API.createUser(username, password);
-        });
+        }).then(() => navigate("/signin"));
       } else {
         alert("Les mots de passes ne correspondent pas !");
       }

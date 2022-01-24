@@ -25,8 +25,8 @@ ReactDOM.render(
             <Route path="/" element={<App />} />
             <Route path="create-game" element={<CreateGame />} />
             <Route path="update-game" element={<UpdateGame />} />
-            <Route path="/connexion" element={<Connexion />} />
-            <Route path="/creation" element={<CreateAccount />} />
+            <Route path="/signin" element={<Connexion />} />
+            <Route path="/signup" element={<CreateAccount />} />
             <Route path="/games" element={<Games />} />
             <Route path="/games/:gameId" element={<GameDetail />} />
             <Route path="/users/:userId" element={<UserDetail />} />
