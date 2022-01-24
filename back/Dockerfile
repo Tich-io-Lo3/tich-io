@@ -23,4 +23,4 @@ USER node
 
 # Make port 8080 accessible outside of the container
 EXPOSE 8080
-CMD ["dumb-init", "node", "server.js" ]
+CMD ["dumb-init", "node", "app.js" ]
