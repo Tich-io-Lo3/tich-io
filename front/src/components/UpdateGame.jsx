@@ -1,12 +1,24 @@
 import React, { useState } from "react";
+import { useAPI } from "../providers/ApiProviders";
+// import { useNavigate } from "react-router-dom";
 
 const UpdateGame = () => {
+  // const navigate = useNavigate();
+  const { useFetch, API } = useAPI();
+  //const [games, setGames] = useState([]);
   const [windowsChecked, setWindowsChecked] = useState(false);
   const [macosChecked, setMacosChecked] = useState(false);
   const [linuxChecked, setLinuxChecked] = useState(false);
   const [title, setTitle] = useState(
     new URLSearchParams(window.location.search).get("title")
   );
+  const [description, setDescription] = useState("");
+
+  /*useEffect(() => {
+    useFetch(() => {
+      return API.getGames();
+    }).then((data) => setGames(data));
+  }, []);*/
 
   return (
     <main
@@ -26,6 +38,10 @@ const UpdateGame = () => {
           flexDirection: "column",
           justifyContent: "center",
         }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          checkInfo();
+        }}
       >
         <label htmlFor="title">
           Title :
@@ -40,7 +56,14 @@ const UpdateGame = () => {
         </label>
         <label>
           Description :
-          <input type="text" id="description" name="description" required />
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
         </label>
         <label>
           Game images :
@@ -49,7 +72,7 @@ const UpdateGame = () => {
             id="images"
             name="images"
             multiple={true}
-            required
+            //TODO required
           />
         </label>
 
@@ -64,7 +87,7 @@ const UpdateGame = () => {
           Windows
         </label>
         {windowsChecked && (
-          <input type="file" id="windows" name="windows" required />
+          <input type="file" id="windows" name="windows" /> //TODO required
         )}
         <label>
           <input
@@ -75,7 +98,8 @@ const UpdateGame = () => {
           />
           MacOS
         </label>
-        {macosChecked && <input type="file" id="macos" name="macos" required />}
+        {macosChecked && <input type="file" id="macos" name="macos" />}
+        {/*TODO required */}
         <label>
           <input
             type="checkbox"
@@ -85,7 +109,8 @@ const UpdateGame = () => {
           />
           Linux
         </label>
-        {linuxChecked && <input type="file" id="linux" name="linux" required />}
+        {linuxChecked && <input type="file" id="linux" name="linux" />}
+        {/*TODO required */}
 
         <input
           style={{ alignSelf: "center" }}
@@ -95,6 +120,16 @@ const UpdateGame = () => {
       </form>
     </main>
   );
+
+  function checkInfo() {
+    //if (games.filter((g) => g.title === title).length === 0) {
+    useFetch(() => {
+      return API.createGame(title, description);
+    }).then(); //() => navigate("/games"));
+    //} else {
+    //alert("This game name is already taken");
+    //}
+  }
 };
 
 export default UpdateGame;

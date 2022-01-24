@@ -25,6 +25,28 @@ const API = {
       }),
     });
   },
+
+  getGames: () => {
+    return fetch(`${url_prefix}/games`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  createGame: (title, description) => {
+    console.log(title);
+    console.log(description);
+    return fetch(`${url_prefix}/game`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+      body: JSON.stringify({
+        title,
+        description,
+      }),
+    });
+  },
 };
 
 export default API;
