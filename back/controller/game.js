@@ -1,7 +1,7 @@
 const db = require("../model");
 module.exports = {
   get_all: (req, res) => {
-    return req.game.findAll({}).then((games) => res.json(games));
+    return db.Game.findAll({}).then((games) => res.json(games));
   },
   load_by_id: (req, res, next) => {
     return db.Game.findByPk(req.params.game_id)
