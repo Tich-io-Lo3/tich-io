@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAPI } from "../providers/ApiProviders";
+//import { useNavigate } from "react-router-dom";
 
 const Games = () => {
+  //const navigate = useNavigate();
+  const { useFetch, API } = useAPI();
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    useFetch(() => {
+      return API.getGames();
+    }).then((data) => setGames(data));
+  }, []);
+
   return (
     <ul>
       {games.map((g) => (
@@ -15,7 +27,7 @@ const Games = () => {
 };
 
 //TODO getAllGames()
-const games = [
+/*const games = [
   {
     id: 1,
     title: "Fifa",
@@ -52,6 +64,6 @@ const games = [
     macOsFile: "PATH DU JEU MACOS",
     linuxFile: "PATH DU JEU LINUX",
   },
-];
+];*/
 
 export default Games;
