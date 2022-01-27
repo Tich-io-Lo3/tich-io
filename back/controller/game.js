@@ -15,8 +15,7 @@ module.exports = {
       .catch(next);
   },
   delete_by_id: (req, res, next) => {
-    return req.game
-      .findByPk(req.params.game_id)
+    return db.Game.findByPk(req.params.game_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Game not found" };
@@ -27,8 +26,7 @@ module.exports = {
       .catch(next);
   },
   get_by_id: (req, res, next) => {
-    return req.game
-      .findByPk(req.params.game_id)
+    return db.Game.findByPk(req.params.game_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Person not found" };
@@ -38,14 +36,12 @@ module.exports = {
       .catch(next);
   },
   create: (req, res, next) => {
-    return req.game
-      .create(req.body)
+    return db.Game.create(req.body)
       .then((game) => res.json(game))
       .catch(next);
   },
   update_by_id: (req, res, next) => {
-    return req.game
-      .findByPk(req.params.group_id)
+    return db.Game.findByPk(req.params.group_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Game not found" };

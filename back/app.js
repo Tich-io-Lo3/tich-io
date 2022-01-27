@@ -3,14 +3,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const bdd = require("./models");
+const bdd = require("./model");
 const app = express();
 
 const upload = require("multer")();
 const AWS = require("aws-sdk");
 const nanoid = require("nanoid");
-
-const questionType = ["question", "action"];
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.S3_ID,
