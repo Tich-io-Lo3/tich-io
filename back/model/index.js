@@ -2,7 +2,11 @@ const fs = require("fs");
 const { Sequelize } = require("sequelize");
 
 // create Sequelize instance
-let sequelize = new Sequelize(process.env.BDD_URL);
+let sequelize = new Sequelize(
+  process.env.MYSQL_DATABASE,
+  process.env.MYSQL_USER,
+  process.env.MYSQL_PASSWORD
+);
 
 const db = {};
 
