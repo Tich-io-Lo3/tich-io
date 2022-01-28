@@ -2,10 +2,7 @@ const fs = require("fs");
 const { Sequelize } = require("sequelize");
 
 // create Sequelize instance
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "data.sqlite",
-});
+let sequelize = new Sequelize(process.env.BDD_URL);
 
 const db = {};
 
