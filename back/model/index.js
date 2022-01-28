@@ -8,6 +8,7 @@ let sequelize = new Sequelize(
   process.env.MYSQL_PASSWORD
 );
 
+
 const db = {};
 
 fs.readdirSync(__dirname)
