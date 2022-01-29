@@ -12,7 +12,7 @@ module.exports = {
       if (!distrib) {
         throw { status: 404, message: "Requested distrib not found" };
       }
-      return distrib.json();
+      return distrib;
     });
   },
   get_by_os: (req, res) => {
