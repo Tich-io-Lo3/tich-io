@@ -10,7 +10,7 @@ module.exports = {
         if (!user) {
           throw { status: 404, message: "Requested user not found" };
         }
-        req.user = user;
+        res.user = user;
         return next();
       })
       .catch(next);
