@@ -41,7 +41,7 @@ module.exports = {
       .catch(next);
   },
   get_by_id: (req, res, next) => {
-    return db.User.findByPk(req.params.person_id)
+    return db.User.findByPk(req.params.user_id)
       .then((user) => {
         if (!user) {
           throw { status: 404, message: "Requested Person not found" };
