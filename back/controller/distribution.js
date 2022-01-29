@@ -1,66 +1,85 @@
+const db = require("../model");
+require("../cli/setup_bucket");
 module.exports = {
-  get_all: (req, res, next) => {
-    return db.Game.getDistributions({
-      order: ["label"],
-    })
-      .then((distributions) => res.json(distributions))
-      .catch(next);
-  },
-  get_all_by_label: (req, res, next) => {
-    return db.Game.getDistributions({
-      where: { os: req.params.os },
-    })
-      .then((distribution) => res.json(distribution))
-      .catch(next);
-  },
-  get_by_id: (req, res, next) => {
-    return db.Game.getDistributions({
+  get_all: (req, res) => {
+    return db.Distribution.findAll({
       where: {
-        id: req.params.distribution_id,
+        GameId: req.params.game_id,
       },
-    })
-      .then((distribution) => {
-        if (distribution.length === 0) {
-          throw { status: 404, message: "Requested distribution not found" };
-        }
-        return res.json(distribution[0]);
-      })
-      .catch(next);
+    });
   },
-  create: (req, res, next) => {
-    return db.Game.createDistribution(req.body)
-      .then((distribution) => res.json(distribution))
-      .catch(next);
+  get_by_os: (req, res) => {
+    const distrib = db.Distribution.findOne({
+      where: {
+        GameId: req.params.game_id,
+        os: req.params.distribution_os,
+      },
+    });
+    const params = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: `${distrib.GameId}_${distrib.os}`,
+    };
+    const file = s3.getObject(params, function (err, data) {
+      if (err) {
+        console.log(err, err.stack);
+        res.status(500).send(err.stack);
+      } /*  else {
+          res.setHeader("content-type", question.imageMime);
+          res.send(data.Body);
+        } */
+    });
+    return {
+      data: distrib,
+      file,
+    };
+  },
+  create: (req, res) => {
+    const params = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: `${req.body.GameId}_${req.body.os}`, // File name you want to save as in S3
+      Body: req.file.buffer,
+    };
+    return s3.upload(params, function (err, data) {
+      if (err) {
+        throw err;
+      }
+      console.log(`File uploaded successfully. ${data.Location}`);
+      return db.Distribution.create(req.body).then((distribution) =>
+        res.json(distribution).catch(next)
+      );
+    });
   },
   update_by_id: (req, res, next) => {
-    return db.User.getDistributions({
-      where: {
-        id: req.params.distribution_id,
-      },
-    })
-      .then((distributions) => {
-        if (distributions.length === 0) {
+    return db.Distribution.findByPk(req.params.distribution_id)
+      .then((distribution) => {
+        if (!distribution) {
           throw { status: 404, message: "Requested distribution not found" };
         }
-        Object.assign(distributions[0], req.body);
-        return distributions[0].save();
+        Object.assign(distribution, req.body);
+        return distribution.save();
       })
-      .then((distributions) => res.json(distributions))
+      .then((distribution) => res.json(distribution))
       .catch(next);
   },
   delete_by_id: (req, res, next) => {
-    return db.User.getDistributions({
-      where: {
-        id: req.params.distribution_id,
-      },
-    })
-      .then((distributions) => {
-        if (distributions.length === 0) {
-          throw { status: 404, message: "Requested link not found" };
+    const distrib = db.Distribution.findByPk(req.params.distribution_id)
+      .then((distribution) => {
+        if (!distribution) {
+          throw { status: 404, message: "Requested distribution not found" };
         }
-        return distributions[0].destroy();
+        return distribution.destroy();
       })
       .then(() => res.status(200).end())
       .catch(next);
+    const params = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: `${distrib.GameId}_${distrib.os}`,
+    };
+    s3.deleteObject(params, function (err, data) {
+      if (err) console.log(err, err.stack);
+      // error
+      else console.log(); // deleted
+    });
+    return distrib;
   },
 };

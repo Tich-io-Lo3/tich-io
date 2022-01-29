@@ -4,12 +4,12 @@ module.exports = [
   {
     url: "/game/:game_id/distributions",
     method: "get",
-    func: [game_ctrl.load_by_id, distribution_ctrl.get_all],
+    func: [distribution_ctrl.get_all],
   },
   {
-    url: "/game/:game_id/distribution/:distribution_id",
+    url: "/game/:game_id/distribution/:distribution_os",
     method: "get",
-    func: [game_ctrl.load_by_id, distribution_ctrl.get_by_id],
+    func: [game_ctrl.load_by_id, distribution_ctrl.get_by_os],
   },
   {
     url: "/game/:game_id/distribution",

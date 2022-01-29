@@ -1,4 +1,5 @@
 const db = require("../model");
+
 module.exports = {
   get_all: (req, res) => {
     return db.Game.findAll({}).then((games) => res.json(games));
@@ -41,7 +42,7 @@ module.exports = {
       .catch(next);
   },
   update_by_id: (req, res, next) => {
-    return db.Game.findByPk(req.params.group_id)
+    return db.Game.findByPk(req.params.game_id)
       .then((game) => {
         if (!game) {
           throw { status: 404, message: "Requested Game not found" };
