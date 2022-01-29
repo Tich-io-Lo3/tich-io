@@ -1,15 +1,19 @@
 const fs = require("fs");
 const { Sequelize } = require("sequelize");
+const { isObject } = require("util");
 
 // create Sequelize instance
-let sequelize = new Sequelize(process.env.BDD_URL);
-/* let sequelize = new Sequelize(
-  process.env.MYSQL_DATABASE,
-  process.env.MYSQL_USER,
-  process.env.MYSQL_PASSWORD,
+//let sequelize = new Sequelize(process.env.BDD_URL);
+//console.log(process.env.BDD_URL);
+let sequelize = new Sequelize(
+  //process.env.MYSQL_DATABASE,
+  //process.env.MYSQL_USER,
+  //process.env.MYSQL_PASSWORD,
+  "database",
+  "titch",
+  "tich-io",
   { dialect: "mariadb" }
-); */
-
+);
 const db = {};
 
 fs.readdirSync(__dirname)
