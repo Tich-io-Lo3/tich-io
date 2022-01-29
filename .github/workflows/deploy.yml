@@ -98,7 +98,10 @@ jobs:
       - name: Login to the GitHub Packages Docker Registry
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker login ${{env.REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}"
 
-
+      - name: Pull latest container
+        run: |
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker-compose pull backend"
+      
       - name: Rebuild deployed container
         continue-on-error: true
         run: |
