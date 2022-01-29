@@ -19,6 +19,30 @@ env:
   CONTAINER: nodejs-image
 
 jobs:
+  front:
+    defaults:
+      run:
+        working-directory: ./front
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup NodeJS
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+    - run: npm install
+    - run: npm run build
+    - name: Setup SSH connection
+      uses: webfactory/ssh-agent@v0.5.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Adding Known Hosts
+      run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+    - name: Deploy with rsync
+      run: rsync -avz -e 'ssh -p 22 -i ~/.ssh/id_rsa' ./build/ titch@${{ secrets.SSH_HOST }}:~/reactBuild
   push_to_registry:
     defaults:
       run:
@@ -58,18 +82,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
-    needs: [push_to_registry]
+    needs: [push_to_registry, front]
     name: Deploy to vm
     runs-on: ubuntu-latest
     steps:
-      - name: Setup SSH connection
-        uses: webfactory/ssh-agent@v0.5.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
       - name: Login to the GitHub Packages Docker Registry
         run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "sudo docker login ${{env.REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}"
 
