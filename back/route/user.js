@@ -3,7 +3,7 @@ module.exports = [
   {
     url: "/users",
     method: "get",
-    func: () => "hello wordl",
+    func: user_ctrl.get_all,
   },
   {
     url: "/user/:user_id",
