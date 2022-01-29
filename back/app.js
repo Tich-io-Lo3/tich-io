@@ -18,12 +18,12 @@ const s3 = new AWS.S3({
   sslEnabled: false,
   s3ForcePathStyle: true,
 });
-require("./route")(app);
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+require("./route")(app);
 
 // launch server
 const server = app.listen(process.env.PORT || 3630, () => {

@@ -7,6 +7,11 @@ module.exports = [
   },
   {
     url: "/user/:user_id",
+    method: "get",
+    func: user_ctrl.get_by_id,
+  },
+  {
+    url: "/user/:user_id",
     method: "delete",
     func: user_ctrl.delete_by_id,
   },

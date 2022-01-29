@@ -38,7 +38,7 @@ module.exports = {
       .catch(next);
   },
   create: (req, res, next) => {
-    console.log(req.body);
+    console.log(req);
     return db.User.create(req.body)
       .then((user) => res.json(user))
       .catch(next);
