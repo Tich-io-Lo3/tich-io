@@ -3,7 +3,7 @@ const upload = require("multer")();
 
 require("../cli/setup_bucket");
 module.exports = {
-  get_all: (req, res) => {
+  get_all: (req, res, next) => {
     return db.Distribution.findAll({
       where: {
         GameId: req.params.game_id,
@@ -13,7 +13,7 @@ module.exports = {
         throw { status: 404, message: "Requested distrib not found" };
       }
       res.distrib = distrib;
-      return distrib;
+      return next;
     });
   },
   get_by_os: (req, res) => {
