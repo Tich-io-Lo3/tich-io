@@ -18,9 +18,7 @@ const s3 = new AWS.S3({
   s3ForcePathStyle: true,
 });
 require("./route")(app);
-app.configure(function () {
-  app.use(express.bodyParser());
-});
+
 app.use(cors());
 app.use(express.json());
 
