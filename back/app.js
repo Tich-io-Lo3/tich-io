@@ -17,6 +17,7 @@ const s3 = new AWS.S3({
   sslEnabled: false,
   s3ForcePathStyle: true,
 });
+require("./route")(app);
 
 app.use(cors());
 app.use(express.json());
