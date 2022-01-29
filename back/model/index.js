@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const { isObject } = require("util");
 
 // create Sequelize instance
-let sequelize = new Sequelize("mariadb://tich:tich-io@database:3630/database");
+let sequelize = new Sequelize("mariadb://tich:tich-io@database:3306/database");
 console.log(process.env.BDD_URL);
 /* let sequelize = new Sequelize(
   process.env.MYSQL_DATABASE,
