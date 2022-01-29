@@ -10,12 +10,25 @@ module.exports = {
         if (!user) {
           throw { status: 404, message: "Requested user not found" };
         }
-        res.user = user;
-        return next();
+        res.json(user);
       })
       .catch(next);
   },
-
+  signin: (req, res, next) => {
+    return db.User.findOne({
+      where: {
+        name: req.body.name,
+        password: req.body.password,
+      },
+    })
+      .then((user) => {
+        if (!user) {
+          throw { status: 404, message: "Requested user not found" };
+        }
+        res.json(user);
+      })
+      .catch(next);
+  },
   delete_by_id: (req, res, next) => {
     return db.User.findByPk(req.params.user_id)
       .then((user) => {

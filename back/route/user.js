@@ -25,4 +25,9 @@ module.exports = [
     method: "put",
     func: user_ctrl.update_by_id,
   },
+  {
+    url: "/signin/",
+    method: "get",
+    func: user_ctrl.signin,
+  },
 ];
