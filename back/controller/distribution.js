@@ -8,14 +8,12 @@ module.exports = {
       where: {
         GameId: req.params.game_id,
       },
-    })
-      .then((distrib) => {
-        if (!distrib) {
-          throw { status: 404, message: "Requested distrib not found" };
-        }
-        return distrib.json();
-      })
-      .catch(next);
+    }).then((distrib) => {
+      if (!distrib) {
+        throw { status: 404, message: "Requested distrib not found" };
+      }
+      return distrib.json();
+    });
   },
   get_by_os: (req, res) => {
     const distrib = db.Distribution.findOne({
