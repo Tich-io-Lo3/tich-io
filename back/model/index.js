@@ -25,5 +25,5 @@ Object.keys(db).forEach((modelName) => {
 });
 
 sequelize.sync();
-
+console.log("db done");
 module.exports = db;
