@@ -54,7 +54,7 @@ module.exports = {
         os: req.body.os,
         file: `${req.params.game_id}_${req.body.os}`,
         GameId: req.params.game_id,
-        mimeType: req.file.mimeType,
+        mimeType: req.file.mimetype,
       }).then((distribution) => res.json(distribution).catch(next));
     });
   },
