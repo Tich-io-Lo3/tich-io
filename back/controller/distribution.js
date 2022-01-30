@@ -1,6 +1,5 @@
 const db = require("../model");
 const upload = require("multer")();
-
 require("../cli/setup_bucket");
 module.exports = {
   get_all: (req, res, next) => {
