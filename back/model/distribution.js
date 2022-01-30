@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
+
 module.exports = (sequelize) => {
   class Distribution extends Sequelize.Model {
     static associate(db) {

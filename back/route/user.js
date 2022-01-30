@@ -7,6 +7,11 @@ module.exports = [
   },
   {
     url: "/user/:user_id",
+    method: "get",
+    func: user_ctrl.get_by_id,
+  },
+  {
+    url: "/user/:user_id",
     method: "delete",
     func: user_ctrl.delete_by_id,
   },
@@ -19,5 +24,10 @@ module.exports = [
     url: "/user/:user_id",
     method: "put",
     func: user_ctrl.update_by_id,
+  },
+  {
+    url: "/signin/",
+    method: "get",
+    func: user_ctrl.signin,
   },
 ];
