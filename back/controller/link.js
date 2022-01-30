@@ -1,4 +1,6 @@
 const db = require("../model");
+const { Op } = require("sequelize");
+
 module.exports = {
   get_all: (req, res, next) => {
     return db.Link.findAll(

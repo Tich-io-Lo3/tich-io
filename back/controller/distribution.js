@@ -16,29 +16,24 @@ module.exports = {
     });
   },
   get_by_os: (req, res) => {
-    const distrib = db.Distribution.findOne({
+    db.Distribution.findOne({
       where: {
         GameId: req.params.game_id,
         os: req.params.distribution_os,
       },
-    });
-    const params = {
-      Bucket: process.env.BUCKET_NAME,
-      Key: `${distrib.GameId}_${distrib.os}`,
-    };
-    const file = s3.getObject(params, function (err, data) {
-      if (err) {
-        console.log(err, err.stack);
-        res.status(500).send(err.stack);
-      } /*  else {
-          res.setHeader("content-type", question.imageMime);
-          res.send(data.Body);
-        } */
-    });
-    res.setHeader("content-type", distrib.mimeType);
-    res.send({
-      data: distrib,
-      file,
+    }).then((distribution) => {
+      const params = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: `${distrib.GameId}_${distrib.os}`,
+      };
+      s3.getObject(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          res.status(500).send(err.stack);
+        }
+      });
+      res.setHeader("content-type", distribution.mimeType);
+      res.send(data.body);
     });
   },
   create: (req, res) => {
@@ -47,16 +42,16 @@ module.exports = {
       Key: `${req.body.GameId}_${req.body.os}`, // File name you want to save as in S3
       Body: req.file.buffer,
     };
-    return s3.upload(params, function (err, data) {
+    s3.upload(params, function (err, data) {
       if (err) {
         throw err;
       }
       console.log(`File uploaded successfully. ${data.Location}`);
-      return db.Distribution.create({
+      db.Distribution.create({
         os: req.body.os,
         file: `${req.body.GameId}_${req.body.os}`,
-        GameId: req.body.GameId,
-        mimeType: req.body.file.mimeType,
+        GameId: req.params.game_id,
+        mimeType: req.file.mimeType,
       }).then((distribution) => res.json(distribution).catch(next));
     });
   },
