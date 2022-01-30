@@ -1,12 +1,38 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { CurrentUserProvider } from "./providers/CurrentUserProvider";
+import { ApiProvider } from "./providers/ApiProviders";
+
+// IMPORT DE NOS ROUTES
+import App from "./App";
+import Connexion from "./routes/Connexion";
+import ManageGame from "./components/ManageGame";
+import CreateAccount from "./components/CreateAccount";
+import UserDetail from "./components/UserDetail";
+import Games from "./components/Games";
+import GameDetail from "./components/GameDetail";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CurrentUserProvider>
+      <ApiProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="manage-game" element={<ManageGame />} />
+            <Route path="manage-game/:gameId" element={<ManageGame />} />
+            <Route path="/signin" element={<Connexion />} />
+            <Route path="/signup" element={<CreateAccount />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/games/:gameId" element={<GameDetail />} />
+            <Route path="/users/:userId" element={<UserDetail />} />
+          </Routes>
+        </BrowserRouter>
+      </ApiProvider>
+    </CurrentUserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
