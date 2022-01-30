@@ -11,11 +11,11 @@ module.exports = [
     method: "get",
     func: [distribution_ctrl.get_by_os],
   },
-  {
-    url: "/game/:game_id/distribution",
-    method: "post",
-    func: [distribution_ctrl.create],
-  },
+  // {
+  //   url: "/game/:game_id/distribution",
+  //   method: "post",
+  //   func: [distribution_ctrl.create],
+  // },
   {
     url: "/game/:game_id/distribution/:distribution_id",
     method: "put",
