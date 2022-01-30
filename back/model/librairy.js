@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-  class Library extends Sequelize.Model {
+  class Librairy extends Sequelize.Model {
     static associate(db) {
       Library.belongsTo(db.User, { onDelete: "cascade" });
       Library.belongsTo(db.Game, { onDelete: "cascade" });
@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
     {},
     {
       sequelize,
-      modelName: "Librairy",
+      modelName: "Library",
     }
   );
 
