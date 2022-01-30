@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 module.exports = {
   get_all_by_user_id: (req, res, next) => {
     return db.Library.findAll({
-      where: { userId: { [Op.eq]: req.body.user_id } },
+      where: { userId: { [Op.eq]: req.params.user_id } },
     })
       .then((games) => res.json(games))
       .catch(next);
