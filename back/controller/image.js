@@ -5,7 +5,6 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const s3 = require("../cli/setup_bucket")[0];
-const image = require("../route/image");
 module.exports = {
   get_all: (req, res, next) => {
     db.Image.findAll({
@@ -13,7 +12,6 @@ module.exports = {
         GameId: { [Op.eq]: req.params.game_id },
       },
     }).then((images) => {
-      res.setHeader("content-type");
 
       let response = [];
       for (let i = 0; i < images.length; i++) {
