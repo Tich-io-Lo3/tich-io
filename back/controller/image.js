@@ -19,7 +19,7 @@ module.exports = {
       for (let i = 0; i < images.length; i++) {
         const params = {
           Bucket: process.env.BUCKET_NAME,
-          Key: image.path,
+          Key: images[i].path,
         };
 
         s3.getObject(params, function (err, data) {
@@ -30,7 +30,7 @@ module.exports = {
             response = [...response, data.body];
           }
         });
-        res.setHeader("content-type", image.imageMime);
+        res.setHeader("content-type", images[i].imageMime);
         res.send(response);
       }
     });
