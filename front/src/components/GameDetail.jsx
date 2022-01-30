@@ -20,9 +20,7 @@ const GameDetail = () => {
       .then(
         useFetch(() => {
           return API.getUserLibrary(currentUser.id);
-        })
-          .then((data) => setLibrary(data))
-          .then(console.log(library))
+        }).then((data) => setLibrary(data))
       );
   }, []);
 
@@ -46,11 +44,10 @@ const GameDetail = () => {
   );
 
   function addGameToLibrary() {
-    console.log(library);
-    if (library.filter((g) => g.id === game.id).length === 0) {
+    if (library.filter((g) => g.GameId === game.id).length === 0) {
       useFetch(() => {
         return API.addGameToLibrary(currentUser.id, game.id);
-      }).then((data) => console.log(data)); //.then(() => navigate("/signin"));//TODO navigate to library
+      }); //.then(() => navigate("/signin"));//TODO navigate to library
     } else {
       alert("Vous possédez déjà ce jeu");
     }
