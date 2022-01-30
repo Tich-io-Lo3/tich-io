@@ -3,7 +3,6 @@ module.exports = (sequelize) => {
   class User extends Sequelize.Model {
     static associate(db) {
       User.hasMany(db.Link);
-      User.hasMany(db.Game);
     }
   }
 
