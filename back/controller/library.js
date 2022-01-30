@@ -17,7 +17,6 @@ module.exports = {
   },
   create: (req, res, next) => {
     return db.Library.create(req.body)
-      .createLibrary(req.body)
       .then((library) => res.json(library))
       .catch(next);
   },
