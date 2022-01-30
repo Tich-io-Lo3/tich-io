@@ -4,6 +4,7 @@ module.exports = (sequelize) => {
     static associate(db) {
       Game.hasMany(db.Distribution, { onDelete: "cascade" });
       Game.belongsToMany(db.User, { through: "Library", onDelete: "cascade" });
+      Game.hasOne(db.User, { onDelete: "cascade", as: "Creator" });
     }
   }
 
