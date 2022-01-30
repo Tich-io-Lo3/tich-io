@@ -1,0 +1,66 @@
+const JSON_HEADERS = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
+
+const url_prefix = "http://api.26.muffin.pm";
+
+const API = {
+  getUsers: () => {
+    return fetch(`${url_prefix}/users`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  getUserById: (userId) => {
+    return fetch(`${url_prefix}/user/${userId}`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  createUser: (name, password) => {
+    return fetch(`${url_prefix}/user`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+      body: JSON.stringify({
+        name,
+        password,
+      }),
+    });
+  },
+
+  getGames: () => {
+    return fetch(`${url_prefix}/games`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  getGameById: (id) => {
+    return fetch(`${url_prefix}/game/${id}`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  createGame: (title, description) => {
+    return fetch(`${url_prefix}/game`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+      body: JSON.stringify({
+        title,
+        description,
+      }),
+    });
+  },
+};
+
+export default API;

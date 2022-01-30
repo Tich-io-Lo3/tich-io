@@ -12,7 +12,7 @@ const CreateGame = () => {
         minHeight: "100vh",
       }}
     >
-      <h2>Création d&apos;un jeu</h2>
+      <h2>Game creation</h2>
       <form
         action="/update-game"
         style={{
@@ -21,9 +21,9 @@ const CreateGame = () => {
           alignItems: "center",
         }}
       >
-        <label htmlFor="title">Quel est le titre de votre jeu ?</label>
+        <label htmlFor="title">Game name ?</label>
         <input type="text" id="title" name="title" required />
-        <input type="submit" value="Valider" />
+        <input type="submit" value="Confirm" />
       </form>
     </main>
   );
