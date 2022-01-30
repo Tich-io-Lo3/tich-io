@@ -10,7 +10,6 @@ export const CurrentUserProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    console.log(JSON.parse(localStorage.getItem("currentUser")));
   }, [currentUser]);
 
   return (
