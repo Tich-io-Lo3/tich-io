@@ -23,7 +23,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="manage-game" element={<ManageGame />} />
-            <Route path="manage-game/:userId" element={<ManageGame />} />
+            <Route path="manage-game/:gameId" element={<ManageGame />} />
             <Route path="/signin" element={<Connexion />} />
             <Route path="/signup" element={<CreateAccount />} />
             <Route path="/games" element={<Games />} />

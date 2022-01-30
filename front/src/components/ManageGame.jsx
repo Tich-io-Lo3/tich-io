@@ -10,20 +10,20 @@ const ManageGame = () => {
   const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [games, setGames] = useState([]);
-  const [game, setGame] = useState();
   const [windowsChecked, setWindowsChecked] = useState(false);
   const [macosChecked, setMacosChecked] = useState(false);
   const [linuxChecked, setLinuxChecked] = useState(false);
-  const [title, setTitle] = useState(gameId ? game.title : "");
-  const [description, setDescription] = useState(
-    gameId ? game.description : ""
-  );
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     if (gameId) {
       useFetch(() => {
         return API.getGameById(gameId);
-      }).then((data) => setGame(data));
+      }).then((game) => {
+        setTitle(game.title);
+        setDescription(game.description);
+      });
     } else {
       useFetch(() => {
         return API.getGames();
