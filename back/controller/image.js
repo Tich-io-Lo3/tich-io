@@ -33,6 +33,28 @@ module.exports = {
       }
     });
   },
+  get_by_id: (req, res) => {
+    db.Image.findByPk(req.params.game_id)
+    .then((image) => {
+
+      
+      const params = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: image.path,
+      };
+
+      s3.getObject(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          res.status(500).send(err.stack);
+        } else {
+          res.setHeader("content-type", image.imageMime);
+          res.send(data.Body);
+        }
+      });
+        
+    });
+  },
   create: (req, res, next) => {
     let fileName = nanoid.nanoid();
     console.log(req);
