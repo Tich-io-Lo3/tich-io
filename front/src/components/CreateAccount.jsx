@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAPI } from "../providers/ApiProviders";
 import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -17,35 +18,38 @@ const CreateAccount = () => {
   }, []);
 
   return (
-    <form>
-      <label htmlFor="username">Username :</label>
-      <input
-        type="text"
-        name="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
-      <label htmlFor="password">Password :</label>
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <label htmlFor="confirmPassword">Confirm password :</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <br />
-      <button type="button" onClick={checkInfo}>
-        Sign up
-      </button>
-    </form>
+    <>
+      <Nav />
+      <form>
+        <label htmlFor="username">Username :</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
+        <label htmlFor="password">Password :</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <label htmlFor="confirmPassword">Confirm password :</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <br />
+        <button type="button" onClick={checkInfo}>
+          Sign up
+        </button>
+      </form>
+    </>
   );
 
   function checkInfo() {
