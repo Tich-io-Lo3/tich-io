@@ -38,7 +38,7 @@ module.exports = {
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: fileName, // File name you want to save as in S3
-      Body: req.body.file.buffer,
+      Body: req.file.buffer,
     };
     s3.upload(params, function (err, data) {
       if (err) {
@@ -46,7 +46,7 @@ module.exports = {
       }
       console.log(`File uploaded successfully. ${data.Location}`);
 
-      db.Image.create({ path: fileName, imageMime: req.body.file.mimetype, GameId: req.params.game_id })
+      db.Image.create({ path: fileName, imageMime: req.file.mimetype, GameId: req.params.game_id })
         .then((image) => res.json(image))
         .catch(next);
     });
