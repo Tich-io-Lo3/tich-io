@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAPI } from "../providers/ApiProviders";
 
 const UserDetail = () => {
   let { userId } = useParams();
   userId = parseInt(userId);
+  const { useFetch, API } = useAPI();
+  const [user, setUser] = useState();
 
-  //TODO findUserById()
-  const userIndex = users.findIndex((u) => u.id == userId);
-  const user = users[userIndex];
+  useEffect(() => {
+    useFetch(() => {
+      return API.getUserById(userId);
+    }).then((data) => setUser(data));
+  }, []);
 
   return (
     <div>
@@ -39,65 +44,5 @@ const UserDetail = () => {
     </div>
   );
 };
-
-//TODO getAllUsers()
-const users = [
-  {
-    id: 1,
-    username: "tiego",
-    description: "desc test",
-    facebook: "efefefef",
-    twitter: null,
-    web: null,
-    games: [
-      {
-        title: "Jeu 1",
-        description: "cekmlmdsm",
-        imageFolder: "/path ToAWS",
-        windowsFile: null,
-        macOsFile: "PATH DU JEU MACOS",
-        linuxFile: null,
-      },
-      {
-        title: "Jeu 2",
-        description: "kddskdks,d,sd",
-        imageFolder: "/path ToAWS",
-        windowsFile: "PATH DU JEU WINDOWS",
-        macOsFile: null,
-        linuxFile: "PATH DU JEU LINUX",
-      },
-    ],
-    password: "123",
-  },
-  {
-    id: 2,
-    username: "plante",
-    description: "desc test",
-    facebook: "effefe",
-    twitter: null,
-    web: "fefefe",
-    games: [],
-    password: "verte",
-  },
-  {
-    id: 3,
-    username: "monkey",
-    description: "desc test",
-    facebook: "fefefe",
-    twitter: "feeffefe",
-    web: "feeffeff",
-    games: [
-      {
-        title: "Jeu 1",
-        description: "cekmlmdsm",
-        imageFolder: "/path ToAWS",
-        windowsFile: null,
-        macOsFile: "PATH DU JEU MACOS",
-        linuxFile: null,
-      },
-    ],
-    password: "enzo",
-  },
-];
 
 export default UserDetail;

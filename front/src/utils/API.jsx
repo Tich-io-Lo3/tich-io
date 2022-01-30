@@ -3,11 +3,19 @@ const JSON_HEADERS = {
   "Content-Type": "application/json",
 };
 
-const url_prefix = "http://localhost:3630";
+const url_prefix = "http://api.26.muffin.pm";
 
 const API = {
   getUsers: () => {
     return fetch(`${url_prefix}/users`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  getUserById: (userId) => {
+    return fetch(`${url_prefix}/user/${userId}`, {
       method: "GET",
       headers: JSON_HEADERS,
       withCredentials: true,
@@ -34,9 +42,15 @@ const API = {
     });
   },
 
+  getGameById: (id) => {
+    return fetch(`${url_prefix}/game/${id}`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
   createGame: (title, description) => {
-    console.log(title);
-    console.log(description);
     return fetch(`${url_prefix}/game`, {
       method: "POST",
       headers: JSON_HEADERS,

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAPI } from "../providers/ApiProviders";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UpdateGame = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { useFetch, API } = useAPI();
-  //const [games, setGames] = useState([]);
+  const [games, setGames] = useState([]);
   const [windowsChecked, setWindowsChecked] = useState(false);
   const [macosChecked, setMacosChecked] = useState(false);
   const [linuxChecked, setLinuxChecked] = useState(false);
@@ -14,11 +14,11 @@ const UpdateGame = () => {
   );
   const [description, setDescription] = useState("");
 
-  /*useEffect(() => {
+  useEffect(() => {
     useFetch(() => {
       return API.getGames();
     }).then((data) => setGames(data));
-  }, []);*/
+  }, []);
 
   return (
     <main
@@ -67,13 +67,7 @@ const UpdateGame = () => {
         </label>
         <label>
           Game images :
-          <input
-            type="file"
-            id="images"
-            name="images"
-            multiple={true}
-            //TODO required
-          />
+          <input type="file" id="images" name="images" multiple={true} />
         </label>
 
         <h4 style={{ marginBottom: 0 }}>On which OS is your game available?</h4>
@@ -86,9 +80,7 @@ const UpdateGame = () => {
           />
           Windows
         </label>
-        {windowsChecked && (
-          <input type="file" id="windows" name="windows" /> //TODO required
-        )}
+        {windowsChecked && <input type="file" id="windows" name="windows" />}
         <label>
           <input
             type="checkbox"
@@ -99,7 +91,6 @@ const UpdateGame = () => {
           MacOS
         </label>
         {macosChecked && <input type="file" id="macos" name="macos" />}
-        {/*TODO required */}
         <label>
           <input
             type="checkbox"
@@ -110,7 +101,6 @@ const UpdateGame = () => {
           Linux
         </label>
         {linuxChecked && <input type="file" id="linux" name="linux" />}
-        {/*TODO required */}
 
         <input
           style={{ alignSelf: "center" }}
@@ -122,13 +112,13 @@ const UpdateGame = () => {
   );
 
   function checkInfo() {
-    //if (games.filter((g) => g.title === title).length === 0) {
-    useFetch(() => {
-      return API.createGame(title, description);
-    }).then(); //() => navigate("/games"));
-    //} else {
-    //alert("This game name is already taken");
-    //}
+    if (games.filter((g) => g.title === title).length === 0) {
+      useFetch(() => {
+        return API.createGame(title, description);
+      }).then(() => navigate("/games"));
+    } else {
+      alert("This game name is already taken");
+    }
   }
 };
 

@@ -43,7 +43,6 @@ const ConnexionForm = () => {
 
   function checkConnexionInfo() {
     let isConnected = false;
-    console.log(allUsers);
     allUsers.map((user) => {
       if (user.name === username && user.password === password) {
         setCurrentUser(user);

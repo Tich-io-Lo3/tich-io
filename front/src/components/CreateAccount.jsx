@@ -49,7 +49,7 @@ const CreateAccount = () => {
   );
 
   function checkInfo() {
-    if (allUsers.filter((user) => user.username === username).length === 0) {
+    if (allUsers.filter((user) => user.name === username).length === 0) {
       if (password === confirmPassword) {
         useFetch(() => {
           return API.createUser(username, password);
