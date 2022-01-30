@@ -11,7 +11,7 @@ module.exports = [
     func: game_ctrl.get_by_id,
   },
   {
-    url: "/games/creator_id",
+    url: "/games/creator/creator_id",
     method: "get",
     func: game_ctrl.get_by_creator,
   },
