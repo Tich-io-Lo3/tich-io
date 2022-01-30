@@ -3,7 +3,7 @@ module.exports = (sequelize) => {
   class User extends Sequelize.Model {
     static associate(db) {
       User.hasMany(db.Link);
-      //User.Belongsto(db.Library, { onDelete: "cascade" });
+      User.hasOne(db.Game);
     }
   }
 
