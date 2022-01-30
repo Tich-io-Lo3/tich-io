@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useAPI } from "../providers/ApiProviders";
 import { useNavigate, useParams } from "react-router-dom";
+import { useCurrentUser } from "../providers/CurrentUserProvider";
 import Nav from "./Nav";
 import PropTypes from "prop-types";
 
 const ManageGame = () => {
   let { gameId } = useParams();
+  const { currentUser } = useCurrentUser();
   gameId = parseInt(gameId);
   const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [games, setGames] = useState([]);
-  const [game, setGame] = useState();
   const [windowsChecked, setWindowsChecked] = useState(false);
   const [macosChecked, setMacosChecked] = useState(false);
   const [linuxChecked, setLinuxChecked] = useState(false);
-  const [title, setTitle] = useState(gameId ? game.title : "");
-  const [description, setDescription] = useState(
-    gameId ? game.description : ""
-  );
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     if (gameId) {
       useFetch(() => {
         return API.getGameById(gameId);
-      }).then((data) => setGame(data));
+      }).then((game) => {
+        setTitle(game.title);
+        setDescription(game.description);
+      });
     } else {
       useFetch(() => {
         return API.getGames();
@@ -131,7 +133,7 @@ const ManageGame = () => {
     if (!gameId) {
       if (games.filter((g) => g.title === title).length === 0) {
         useFetch(() => {
-          return API.createGame(title, description);
+          return API.createGame(currentUser.id, title, description);
         }).then(() => navigate("/games"));
       } else {
         alert("This game name is already taken");

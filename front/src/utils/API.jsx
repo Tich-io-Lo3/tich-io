@@ -91,12 +91,13 @@ const API = {
     });
   },
 
-  createGame: (title, description) => {
+  createGame: (creatorId, title, description) => {
     return fetch(`${url_prefix}/game`, {
       method: "POST",
       headers: JSON_HEADERS,
       withCredentials: true,
       body: JSON.stringify({
+        creatorId,
         title,
         description,
       }),
