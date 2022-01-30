@@ -17,7 +17,7 @@ module.exports = [
     func: [image_ctrl.delete_by_id],
   },
   {
-    url: "/game/:game_id/image/:image_id",
+    url: "/game/image/:image_id",
     method: "get",
     func: [image_ctrl.get_by_id],
   },
