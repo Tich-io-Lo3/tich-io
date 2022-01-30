@@ -1,6 +1,8 @@
 const upload = require("multer")();
 const db = require("../model");
 const nanoid = require("nanoid");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const s3 = require("../cli/setup_bucket")[0];
 module.exports = {
