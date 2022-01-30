@@ -39,6 +39,7 @@ module.exports = {
     });
   },
   create: (req, res, next) => {
+    console.log("Creating distrib");
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: `${req.params.GameId}_${req.body.os}`, // File name you want to save as in S3
