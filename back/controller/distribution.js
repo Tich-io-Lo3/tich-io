@@ -38,7 +38,7 @@ module.exports = {
       res.send(data.body);
     });
   },
-  create: (req, res) => {
+  create: (req, res, next) => {
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: `${req.params.GameId}_${req.body.os}`, // File name you want to save as in S3
