@@ -17,11 +17,13 @@ const GameDetail = () => {
       return API.getGameById(gameId);
     })
       .then((data) => setGame(data))
-      .then(
-        useFetch(() => {
-          return API.getUserLibrary(currentUser.id);
-        }).then((data) => setLibrary(data))
-      );
+      .then(() => {
+        if (currentUser) {
+          useFetch(() => {
+            return API.getUserLibrary(currentUser.id);
+          }).then((data) => setLibrary(data));
+        }
+      });
   }, []);
 
   return (
@@ -39,7 +41,7 @@ const GameDetail = () => {
       <p>{game?.windowsFile}</p>
       <p>{game?.macOsFile}</p>
       <p>{game?.linuxFile}</p>
-      <button onClick={addGameToLibrary}>Buy</button>
+      {currentUser && <button onClick={addGameToLibrary}>Buy</button>}
     </div>
   );
 
