@@ -36,10 +36,10 @@ module.exports = {
           res.send(data.Body);
         } */
     });
-    return {
+    res.json({
       data: distrib,
       file,
-    };
+    });
   },
   create: (req, res) => {
     const params = {
