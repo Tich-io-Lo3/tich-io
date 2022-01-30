@@ -85,16 +85,13 @@ const UserDetail = () => {
     } else {
       useFetch(() => {
         return API.addUserLink(userId, linkText, linkType);
-      })
-        .then(() => {
-          setLinkText("");
-          setLinkType("Facebook");
-        })
-        .then(
-          useFetch(() => {
-            return API.getUserLink(userId);
-          }).then((data) => setLinks(data))
-        );
+      }).then(() => {
+        setLinkText("");
+        setLinkType("Facebook");
+        useFetch(() => {
+          return API.getUserLink(userId);
+        }).then((data) => setLinks(data));
+      });
     }
   }
 };

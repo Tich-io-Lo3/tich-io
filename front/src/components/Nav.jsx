@@ -16,12 +16,6 @@ const Nav = () => {
       }}
     >
       <Link
-        to="/manage-game"
-        style={{ textDecoration: "none", fontWeight: "bold", color: "black" }}
-      >
-        Create game
-      </Link>
-      <Link
         to="/games"
         style={{ textDecoration: "none", fontWeight: "bold", color: "black" }}
       >
@@ -52,6 +46,17 @@ const Nav = () => {
         </>
       ) : (
         <>
+          <Link
+            to="/manage-game"
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "black",
+            }}
+          >
+            Create game
+          </Link>
+
           <p
             style={{
               textDecoration: "none",
