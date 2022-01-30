@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 require("./route")(app);
-const image_ctrl = require('controller/image');
+const image_ctrl = require('./controller/image');
 
 app.post("/game/:game_id/image", upload.single('file'), image_ctrl.create);
 
