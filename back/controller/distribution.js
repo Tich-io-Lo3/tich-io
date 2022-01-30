@@ -1,6 +1,8 @@
 const db = require("../model");
 const upload = require("multer")();
 require("../cli/setup_bucket");
+const s3 = require("../cli/setup_bucket")[0];
+
 module.exports = {
   get_all: (req, res, next) => {
     return db.Distribution.findAll({
