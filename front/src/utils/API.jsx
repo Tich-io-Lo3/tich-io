@@ -22,6 +22,35 @@ const API = {
     });
   },
 
+  getUserLink: (userId) => {
+    return fetch(`${url_prefix}/user/${userId}/link`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
+  addUserLink: (userId, link, service) => {
+    return fetch(`${url_prefix}/user/${userId}/link`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+      body: JSON.stringify({
+        UserId: userId,
+        link,
+        service,
+      }),
+    });
+  },
+
+  getUserLibrary: (userId) => {
+    return fetch(`${url_prefix}/user/${userId}/games`, {
+      method: "GET",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+    });
+  },
+
   createUser: (name, password) => {
     return fetch(`${url_prefix}/user`, {
       method: "POST",
@@ -53,6 +82,18 @@ const API = {
   createGame: (title, description) => {
     return fetch(`${url_prefix}/game`, {
       method: "POST",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+      body: JSON.stringify({
+        title,
+        description,
+      }),
+    });
+  },
+
+  updateGame: (gameId, title, description) => {
+    return fetch(`${url_prefix}/game/${gameId}`, {
+      method: "PUT",
       headers: JSON_HEADERS,
       withCredentials: true,
       body: JSON.stringify({

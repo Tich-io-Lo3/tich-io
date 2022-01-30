@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAPI } from "../providers/ApiProviders";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Nav from "./Nav";
 import PropTypes from "prop-types";
 
-const ManageGame = ({ gameId }) => {
+const ManageGame = () => {
+  let { gameId } = useParams();
+  gameId = parseInt(gameId);
   const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [games, setGames] = useState([]);
@@ -18,7 +20,6 @@ const ManageGame = ({ gameId }) => {
   );
 
   useEffect(() => {
-    console.log(gameId);
     if (gameId) {
       useFetch(() => {
         return API.getGameById(gameId);
@@ -136,7 +137,9 @@ const ManageGame = ({ gameId }) => {
         alert("This game name is already taken");
       }
     } else {
-      navigate("/games");
+      useFetch(() => {
+        return API.updateGame(gameId, title, description);
+      }).then(() => navigate("/games"));
     }
   }
 };

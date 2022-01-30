@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useCurrentUser } from "../providers/CurrentUserProvider";
 import { useAPI } from "../providers/ApiProviders";
+//import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 const ConnexionForm = () => {
+  //const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setCurrentUser, currentUser } = useCurrentUser();
+  const { setCurrentUser } = useCurrentUser();
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
@@ -45,6 +47,7 @@ const ConnexionForm = () => {
 
   function checkConnexionInfo() {
     let isConnected = false;
+
     allUsers.map((user) => {
       if (user.name === username && user.password === password) {
         setCurrentUser(user);
@@ -53,8 +56,7 @@ const ConnexionForm = () => {
     });
 
     if (isConnected) {
-      // navigate("/");
-      console.log(currentUser);
+      //navigate("/");
     } else {
       alert("incorrect username/password");
     }
