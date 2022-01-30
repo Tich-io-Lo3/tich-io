@@ -46,7 +46,7 @@ module.exports = {
       }
       console.log(`File uploaded successfully. ${data.Location}`);
 
-      db.Image.create({ path: fileName, imageMime: req.body.file.mimetype })
+      db.Image.create({ path: fileName, imageMime: req.body.file.mimetype, GameId: req.params.game_id })
         .then((image) => res.json(image))
         .catch(next);
     });
