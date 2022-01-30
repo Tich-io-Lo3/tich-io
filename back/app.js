@@ -1,7 +1,6 @@
 require("dotenv").config();
 const bodyParser = require("body-parser");
 
-
 const express = require("express");
 const cors = require("cors");
 
@@ -25,10 +24,15 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 require("./route")(app);
-const image_ctrl = require('./controller/image');
+const image_ctrl = require("./controller/image");
+const distribution_ctrl = require("./controller/distribution");
 
-app.post("/game/:game_id/image", upload.single('file'), image_ctrl.create);
-
+app.post("/game/:game_id/image", upload.single("file"), image_ctrl.create);
+app.post(
+  "/game/:game_id/distribution",
+  upload.single("file"),
+  distribution_ctrl.create
+);
 // launch server
 const server = app.listen(process.env.PORT || 3630, () => {
   const host = server.address().address;
