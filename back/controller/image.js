@@ -6,33 +6,47 @@ const Op = Sequelize.Op;
 
 const s3 = require("../cli/setup_bucket")[0];
 module.exports = {
-  get_all: (req, res, next) => {
-    db.Image.findAll({
-      where: {
-        GameId: { [Op.eq]: req.params.game_id },
-      },
-    }).then((images) => {
+  // get_all: (req, res, next) => {
+  //   db.Image.findAll({
+  //     where: {
+  //       GameId: { [Op.eq]: req.params.game_id },
+  //     },
+  //   }).then((images) => {
 
-      let response = [];
-      for (let i = 0; i < images.length; i++) {
-        const params = {
-          Bucket: process.env.BUCKET_NAME,
-          Key: images[i].path,
-        };
+  //     let response = [];
+  //     for (let i = 0; i < images.length; i++) {
+  //       const params = {
+  //         Bucket: process.env.BUCKET_NAME,
+  //         Key: images[i].path,
+  //       };
 
-        s3.getObject(params, function (err, data) {
-          if (err) {
-            console.log(err, err.stack);
-            res.status(500).send(err.stack);
-          } else {
-            response = [...response, data.body];
-          }
-        });
-        res.setHeader("content-type", images[i].imageMime);
-        res.send(response);
-      }
-    });
-  },
+  //       s3.getObject(params, function (err, data) {
+  //         if (err) {
+  //           console.log(err, err.stack);
+  //           res.status(500).send(err.stack);
+  //         } else {
+  //           response = [...response, data.body];
+  //         }
+  //       });
+  //       res.setHeader("content-type", images[i].imageMime);
+  //       res.send(response);
+  //     }
+  //   });
+  // },
+  get_all: (req, res) => {
+      db.Image.findAll({
+        where: {
+          GameId: { [Op.eq]: req.params.game_id },
+        },
+      }).then((images) => {
+  
+        let response = [];
+        for (let i = 0; i < images.length; i++) {
+          response = [...response, images[i].id];
+        }
+        res.json(response);
+      });
+    },
   get_by_id: (req, res) => {
     db.Image.findByPk(req.params.game_id)
     .then((image) => {
@@ -57,7 +71,6 @@ module.exports = {
   },
   create: (req, res, next) => {
     let fileName = nanoid.nanoid();
-    console.log(req);
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: fileName, // File name you want to save as in S3
