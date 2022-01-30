@@ -9,8 +9,7 @@ import { ApiProvider } from "./providers/ApiProviders";
 // IMPORT DE NOS ROUTES
 import App from "./App";
 import Connexion from "./routes/Connexion";
-import CreateGame from "./components/CreateGame";
-import UpdateGame from "./components/UpdateGame";
+import ManageGame from "./components/ManageGame";
 import CreateAccount from "./components/CreateAccount";
 import UserDetail from "./components/UserDetail";
 import Games from "./components/Games";
@@ -23,8 +22,7 @@ ReactDOM.render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="create-game" element={<CreateGame />} />
-            <Route path="update-game" element={<UpdateGame />} />
+            <Route path="manage-game" element={<ManageGame />} />
             <Route path="/signin" element={<Connexion />} />
             <Route path="/signup" element={<CreateAccount />} />
             <Route path="/games" element={<Games />} />

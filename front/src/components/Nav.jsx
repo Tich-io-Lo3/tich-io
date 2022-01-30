@@ -16,7 +16,7 @@ const Nav = () => {
       }}
     >
       <Link
-        to="/create-game"
+        to="/manage-game"
         style={{ textDecoration: "none", fontWeight: "bold", color: "black" }}
       >
         Create game

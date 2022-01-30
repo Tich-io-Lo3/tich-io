@@ -2,23 +2,32 @@ import React, { useState, useEffect } from "react";
 import { useAPI } from "../providers/ApiProviders";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
+import PropTypes from "prop-types";
 
-const UpdateGame = () => {
+const ManageGame = ({ gameId }) => {
   const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [games, setGames] = useState([]);
+  const [game, setGame] = useState();
   const [windowsChecked, setWindowsChecked] = useState(false);
   const [macosChecked, setMacosChecked] = useState(false);
   const [linuxChecked, setLinuxChecked] = useState(false);
-  const [title, setTitle] = useState(
-    new URLSearchParams(window.location.search).get("title")
+  const [title, setTitle] = useState(gameId ? game.title : "");
+  const [description, setDescription] = useState(
+    gameId ? game.description : ""
   );
-  const [description, setDescription] = useState("");
 
   useEffect(() => {
-    useFetch(() => {
-      return API.getGames();
-    }).then((data) => setGames(data));
+    console.log(gameId);
+    if (gameId) {
+      useFetch(() => {
+        return API.getGameById(gameId);
+      }).then((data) => setGame(data));
+    } else {
+      useFetch(() => {
+        return API.getGames();
+      }).then((data) => setGames(data));
+    }
   }, []);
 
   return (
@@ -34,7 +43,7 @@ const UpdateGame = () => {
           minHeight: "100vh",
         }}
       >
-        <h2>Game modification</h2>
+        <h2>{gameId ? "Game modification" : "Game creation"}</h2>
         <form
           style={{
             display: "flex",
@@ -118,14 +127,26 @@ const UpdateGame = () => {
   );
 
   function checkInfo() {
-    if (games.filter((g) => g.title === title).length === 0) {
-      useFetch(() => {
-        return API.createGame(title, description);
-      }).then(() => navigate("/games"));
+    if (!gameId) {
+      if (games.filter((g) => g.title === title).length === 0) {
+        useFetch(() => {
+          return API.createGame(title, description);
+        }).then(() => navigate("/games"));
+      } else {
+        alert("This game name is already taken");
+      }
     } else {
-      alert("This game name is already taken");
+      navigate("/games");
     }
   }
 };
 
-export default UpdateGame;
+ManageGame.propTypes = {
+  gameId: PropTypes.number,
+};
+
+ManageGame.defaultProps = {
+  gameId: null,
+};
+
+export default ManageGame;
