@@ -27,7 +27,13 @@ const UserDetail = () => {
       .then(
         useFetch(() => {
           return API.getUserLibrary(userId);
-        }).then((data) => setLibrary(data))
+        }).then((data) => {
+          data.map((l) => {
+            useFetch(() => {
+              return API.getGameById(l.GameId);
+            }).then((game) => setLibrary((oldLib) => [...oldLib, game]));
+          });
+        })
       );
   }, []);
 
@@ -59,8 +65,8 @@ const UserDetail = () => {
       </div>
       <h4>Games created by {user?.username} : </h4>
       <ul>
-        {library.map((g) => (
-          <li key={g.id}>
+        {library.map((g, index) => (
+          <li key={index}>
             {g.title}
             <button onClick={() => navigate(`/manage-game/${g.id}`)}>
               Edit
@@ -79,16 +85,13 @@ const UserDetail = () => {
     } else {
       useFetch(() => {
         return API.addUserLink(userId, linkText, linkType);
-      })
-        .then(() => {
-          setLinkText("");
-          setLinkType("Facebook");
-        })
-        .then(
-          useFetch(() => {
-            return API.getUserLink(userId);
-          }).then((data) => setLinks(data))
-        );
+      }).then(() => {
+        setLinkText("");
+        setLinkType("Facebook");
+        useFetch(() => {
+          return API.getUserLink(userId);
+        }).then((data) => setLinks(data));
+      });
     }
   }
 };

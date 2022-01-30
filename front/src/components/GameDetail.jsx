@@ -35,7 +35,7 @@ const GameDetail = () => {
       <p>{game?.imageFolder}</p>
       <p>
         {game?.creator?.name}
-        <Link to={`/users/${game?.creator?.id}`}>User Page</Link>
+        <Link to={`/users/${game?.creatorId}`}>User Page</Link>
       </p>
       <p>Download links :</p>
       <p>{game?.windowsFile}</p>
