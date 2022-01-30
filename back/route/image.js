@@ -6,14 +6,19 @@ module.exports = [
     method: "get",
     func: [image_ctrl.get_all],
   },
+  // {
+  //   url: "/game/:game_id/image",
+  //   method: "post",
+  //   func: [image_ctrl.create],
+  // },
   {
-    url: "/game/:game_id/image",
-    method: "post",
-    func: [image_ctrl.create],
+    url: "/game/:game_id/image/:image_id",
+    method: "delete",
+    func: [image_ctrl.delete_by_id],
   },
   {
     url: "/game/:game_id/image/:image_id",
     method: "get",
-    func: [image_ctrl.delete_by_id],
+    func: [image_ctrl.get_by_id],
   },
 ];

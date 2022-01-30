@@ -1,22 +1,23 @@
 const upload = require("multer")();
 const db = require("../model");
 const nanoid = require("nanoid");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-require("../cli/setup_bucket");
+const s3 = require("../cli/setup_bucket")[0];
 module.exports = {
   get_all: (req, res, next) => {
-    return db.Image.findAll({
+    db.Image.findAll({
       where: {
         GameId: { [Op.eq]: req.params.game_id },
       },
     }).then((images) => {
-      res.setHeader("content-type");
 
       let response = [];
       for (let i = 0; i < images.length; i++) {
         const params = {
           Bucket: process.env.BUCKET_NAME,
-          Key: question.image,
+          Key: images[i].path,
         };
 
         s3.getObject(params, function (err, data) {
@@ -27,13 +28,36 @@ module.exports = {
             response = [...response, data.body];
           }
         });
-        return response;
+        res.setHeader("content-type", images[i].imageMime);
+        res.send(response);
       }
+    });
+  },
+  get_by_id: (req, res) => {
+    db.Image.findByPk(req.params.game_id)
+    .then((image) => {
+
+      
+      const params = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: image.path,
+      };
+
+      s3.getObject(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          res.status(500).send(err.stack);
+        } else {
+          res.setHeader("content-type", image.imageMime);
+          res.send(data.Body);
+        }
+      });
+        
     });
   },
   create: (req, res, next) => {
     let fileName = nanoid.nanoid();
-
+    console.log(req);
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: fileName, // File name you want to save as in S3
@@ -45,7 +69,7 @@ module.exports = {
       }
       console.log(`File uploaded successfully. ${data.Location}`);
 
-      db.Image.create({ path: fileName })
+      db.Image.create({ path: fileName, imageMime: req.file.mimetype, GameId: req.params.game_id })
         .then((image) => res.json(image))
         .catch(next);
     });
