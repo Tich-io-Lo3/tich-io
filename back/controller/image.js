@@ -34,7 +34,7 @@ module.exports = {
   },
   create: (req, res, next) => {
     let fileName = nanoid.nanoid();
-
+    console.log(req.body);
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: fileName, // File name you want to save as in S3
