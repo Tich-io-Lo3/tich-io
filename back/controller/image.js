@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const s3 = require("../cli/setup_bucket")[0];
+const image = require("../route/image");
 module.exports = {
   get_all: (req, res, next) => {
     db.Image.findAll({
@@ -18,7 +19,7 @@ module.exports = {
       for (let i = 0; i < images.length; i++) {
         const params = {
           Bucket: process.env.BUCKET_NAME,
-          Key: question.image,
+          Key: image.path,
         };
 
         s3.getObject(params, function (err, data) {
@@ -29,7 +30,7 @@ module.exports = {
             response = [...response, data.body];
           }
         });
-        res.setHeader("content-type", distrib.imageMime);
+        res.setHeader("content-type", image.imageMime);
         res.send(response);
       }
     });
