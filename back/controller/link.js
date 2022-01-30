@@ -1,17 +1,17 @@
 const db = require("../model");
+const { Op } = require("sequelize");
+
 module.exports = {
   get_all: (req, res, next) => {
-    return db.Link.findAll(
-      {
-        where: {
-          UserId: {
-            [Op.eq]: req.params.user_id,
-          },
+    return db.Link.findAll({
+      where: {
+        UserId: {
+          [Op.eq]: req.params.user_id,
         },
-      }
-        .then((links) => res.json(links))
-        .catch(next)
-    );
+      },
+    })
+      .then((links) => res.json(links))
+      .catch(next);
   },
   create: (req, res, next) => {
     return db.Link.create(req.body)
