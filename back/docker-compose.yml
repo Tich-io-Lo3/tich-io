@@ -16,14 +16,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
   backend:
     image: ghcr.io/tich-io-lo3/tich-io:latest
-    environment:  
-      - NODE_ENV=production
-      - BDD_URL=mariadb://tich-io:tich-io@database/database
-      - PORT=3630
-      - BUCKET_NAME=tich-io
-      - S3_ID=123
-      - S3_TOKEN=abc
-      - S3_DOMAIN=s3:8000
+    env_file:
+      - backend.env
     ports:
       - 3630:3630
     labels:
@@ -41,3 +35,11 @@ services:
     image: fingershock/fakes3
     ports:
       - 8000:8000
+  frontend:
+    image: nginx:1.21.4-alpine
+    ports:
+      - 3632:80
+    labels:
+      - "traefik.http.routers.frontend.rule=Host(`26.muffin.pm`)"
+    volumes:
+      - ./reactBuild:/usr/share/nginx/html
