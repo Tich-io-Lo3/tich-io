@@ -51,6 +51,18 @@ const API = {
     });
   },
 
+  addGameToLibrary: (userId, gameId) => {
+    return fetch(`${url_prefix}/user/${userId}/game`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      withCredentials: true,
+      body: JSON.stringify({
+        UserId: userId,
+        GameId: gameId,
+      }),
+    });
+  },
+
   createUser: (name, password) => {
     return fetch(`${url_prefix}/user`, {
       method: "POST",
