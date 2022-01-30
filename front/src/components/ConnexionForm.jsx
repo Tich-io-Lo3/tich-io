@@ -1,60 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCurrentUser } from "../providers/CurrentUserProvider";
-
-const userTest = [
-  //TODO getAllUsers()
-  {
-    id: 1,
-    username: "tiego",
-    password: "123",
-  },
-  {
-    id: 2,
-    username: "plante",
-    password: "verte",
-  },
-  {
-    id: 3,
-    username: "monkey",
-    password: "enzo",
-  },
-];
+import { useAPI } from "../providers/ApiProviders";
+import Nav from "./Nav";
 
 const ConnexionForm = () => {
+  const { useFetch, API } = useAPI();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setCurrentUser } = useCurrentUser();
+  const { setCurrentUser, currentUser } = useCurrentUser();
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    useFetch(() => {
+      return API.getUsers();
+    }).then((data) => setAllUsers(data));
+  }, []);
 
   return (
-    <form>
-      <label htmlFor="username">Username :</label>
-      <input
-        type="text"
-        name="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
-      <label htmlFor="password">Password :</label>
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <button type="button" onClick={checkConnexionInfo}>
-        Sign in
-      </button>
-    </form>
+    <>
+      <Nav />
+      <form>
+        <label htmlFor="username">Username :</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
+        <label htmlFor="password">Password :</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <button type="button" onClick={checkConnexionInfo}>
+          Sign in
+        </button>
+      </form>
+    </>
   );
 
   function checkConnexionInfo() {
-    userTest.map((user) => {
-      if (user.username === username && user.password === password) {
+    let isConnected = false;
+    allUsers.map((user) => {
+      if (user.name === username && user.password === password) {
         setCurrentUser(user);
+        isConnected = true;
       }
     });
+
+    if (isConnected) {
+      // navigate("/");
+      console.log(currentUser);
+    } else {
+      alert("incorrect username/password");
+    }
   }
 };
 
