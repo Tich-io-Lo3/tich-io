@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useCurrentUser } from "../providers/CurrentUserProvider";
 import { useAPI } from "../providers/ApiProviders";
-import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 
 const ConnexionForm = () => {
-  const navigate = useNavigate();
   const { useFetch, API } = useAPI();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setCurrentUser } = useCurrentUser();
+  const { setCurrentUser, currentUser } = useCurrentUser();
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
@@ -18,27 +17,30 @@ const ConnexionForm = () => {
   }, []);
 
   return (
-    <form>
-      <label htmlFor="username">Username :</label>
-      <input
-        type="text"
-        name="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
-      <label htmlFor="password">Password :</label>
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <button type="button" onClick={checkConnexionInfo}>
-        Sign in
-      </button>
-    </form>
+    <>
+      <Nav />
+      <form>
+        <label htmlFor="username">Username :</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
+        <label htmlFor="password">Password :</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <button type="button" onClick={checkConnexionInfo}>
+          Sign in
+        </button>
+      </form>
+    </>
   );
 
   function checkConnexionInfo() {
@@ -51,7 +53,8 @@ const ConnexionForm = () => {
     });
 
     if (isConnected) {
-      navigate("/");
+      // navigate("/");
+      console.log(currentUser);
     } else {
       alert("incorrect username/password");
     }

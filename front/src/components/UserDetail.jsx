@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAPI } from "../providers/ApiProviders";
+import Nav from "./Nav";
 
 const UserDetail = () => {
   let { userId } = useParams();
@@ -16,6 +17,7 @@ const UserDetail = () => {
 
   return (
     <div>
+      <Nav />
       <p>Details</p>
       <p>{user?.username}</p>
       <p>
