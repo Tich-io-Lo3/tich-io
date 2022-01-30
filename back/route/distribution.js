@@ -9,21 +9,21 @@ module.exports = [
   {
     url: "/game/:game_id/distribution/:distribution_os",
     method: "get",
-    func: [game_ctrl.load_by_id, distribution_ctrl.get_by_os],
+    func: [distribution_ctrl.get_by_os],
   },
   {
     url: "/game/:game_id/distribution",
     method: "post",
-    func: [game_ctrl.load_by_id, distribution_ctrl.create],
+    func: [distribution_ctrl.create],
   },
   {
     url: "/game/:game_id/distribution/:distribution_id",
     method: "put",
-    func: [game_ctrl.load_by_id, distribution_ctrl.update_by_id],
+    func: [distribution_ctrl.update_by_id],
   },
   {
     url: "/game/:game_id/distribution/:distribution_id",
     method: "delete",
-    func: [game_ctrl.load_by_id, distribution_ctrl.delete_by_id],
+    func: [distribution_ctrl.delete_by_id],
   },
 ];
