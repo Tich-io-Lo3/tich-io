@@ -17,7 +17,8 @@ Sur l'ensemble du site, on peut y voir une barre de navigation présentant les d
 - Une fois connecté, il est aussi possible de se déconnecter (Sign out)
 
 # TÉLÉCHARGER L'APPLICATION
-
+Buildez le frontend avec ```npm install``` et ```npm build``` dans la repertoire ./buildReact
+Mettez vous dans la rep parent de buildReact avant de lancer les commandes suivants.
 Bien que cela ne soit pas recommandé, nous laissons le docker-compose et backend.env sur le git afin que vous y ayez accès. Connectez-vous avec le compte Git membre du ce projet: ```sudo docker login ghcr.io -u *user* -p *mdp*```. En lançant ```sudo docker-compose up``` dans la repertoire avec ces fichiers, tous les dockers nécessaires seront lancés. Toutes les variables d'environnement sont comprises dedans. Tous ce dont vous avez besoin est le fichier docker-compose et backend.env.
 
 # L'APPLICATION FRONTEND
