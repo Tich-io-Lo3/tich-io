@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCurrentUser } from "../providers/CurrentUserProvider";
-
-const userTest = [
-  //TODO getAllUsers()
-  {
-    id: 1,
-    username: "tiego",
-    password: "123",
-  },
-  {
-    id: 2,
-    username: "plante",
-    password: "verte",
-  },
-  {
-    id: 3,
-    username: "monkey",
-    password: "enzo",
-  },
-];
+import { useAPI } from "../providers/ApiProviders";
+import { useNavigate } from "react-router-dom";
 
 const ConnexionForm = () => {
+  const navigate = useNavigate();
+  const { useFetch, API } = useAPI();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { setCurrentUser } = useCurrentUser();
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    useFetch(() => {
+      return API.getUsers();
+    }).then((data) => setAllUsers(data));
+  }, []);
 
   return (
     <form>
@@ -44,17 +36,25 @@ const ConnexionForm = () => {
       />
       <br />
       <button type="button" onClick={checkConnexionInfo}>
-        Connexion
+        Sign in
       </button>
     </form>
   );
 
   function checkConnexionInfo() {
-    userTest.map((user) => {
-      if (user.username === username && user.password === password) {
+    let isConnected = false;
+    allUsers.map((user) => {
+      if (user.name === username && user.password === password) {
         setCurrentUser(user);
+        isConnected = true;
       }
     });
+
+    if (isConnected) {
+      navigate("/");
+    } else {
+      alert("incorrect username/password");
+    }
   }
 };
 
