@@ -6,11 +6,11 @@ module.exports = [
     method: "get",
     func: [image_ctrl.get_all],
   },
-  {
-    url: "/game/:game_id/image",
-    method: "post",
-    func: [image_ctrl.create],
-  },
+  // {
+  //   url: "/game/:game_id/image",
+  //   method: "post",
+  //   func: [image_ctrl.create],
+  // },
   {
     url: "/game/:game_id/image/:image_id",
     method: "get",
