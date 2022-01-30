@@ -9,6 +9,7 @@ module.exports = (sequelize) => {
 
   Game.init(
     {
+      UserId: DataTypes.INTEGER,
       title: DataTypes.STRING,
       description: DataTypes.STRING,
     },
