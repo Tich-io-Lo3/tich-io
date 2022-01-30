@@ -35,7 +35,8 @@ module.exports = {
           res.send(data.Body);
         } */
     });
-    res.json({
+    res.setHeader("content-type", distrib.mimeType);
+    res.send({
       data: distrib,
       file,
     });
@@ -51,9 +52,12 @@ module.exports = {
         throw err;
       }
       console.log(`File uploaded successfully. ${data.Location}`);
-      return db.Distribution.create(req.body).then((distribution) =>
-        res.json(distribution).catch(next)
-      );
+      return db.Distribution.create({
+        os: req.body.os,
+        file: `${req.body.GameId}_${req.body.os}`,
+        GameId: req.body.GameId,
+        mimeType: req.body.file.mimeType,
+      }).then((distribution) => res.json(distribution).catch(next));
     });
   },
   update_by_id: (req, res, next) => {

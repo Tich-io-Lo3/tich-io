@@ -5,7 +5,7 @@ const nanoid = require("nanoid");
 require("../cli/setup_bucket");
 module.exports = {
   get_all: (req, res, next) => {
-    return db.Image.findAll({
+    db.Image.findAll({
       where: {
         GameId: { [Op.eq]: req.params.game_id },
       },
@@ -27,7 +27,8 @@ module.exports = {
             response = [...response, data.body];
           }
         });
-        return response;
+        res.setHeader("content-type", distrib.imageMime);
+        res.send(response);
       }
     });
   },
@@ -37,7 +38,7 @@ module.exports = {
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: fileName, // File name you want to save as in S3
-      Body: req.file.buffer,
+      Body: req.body.file.buffer,
     };
     s3.upload(params, function (err, data) {
       if (err) {
@@ -45,7 +46,7 @@ module.exports = {
       }
       console.log(`File uploaded successfully. ${data.Location}`);
 
-      db.Image.create({ path: fileName })
+      db.Image.create({ path: fileName, imageMime: req.body.file.mimetype })
         .then((image) => res.json(image))
         .catch(next);
     });

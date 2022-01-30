@@ -9,6 +9,7 @@ module.exports = (sequelize) => {
   Image.init(
     {
       path: DataTypes.STRING,
+      imageMime: DataTypes.STRING,
     },
     {
       sequelize,
