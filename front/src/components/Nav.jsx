@@ -51,18 +51,30 @@ const Nav = () => {
           </Link>
         </>
       ) : (
-        <p
-          style={{
-            textDecoration: "none",
-            fontWeight: "bold",
-            color: "black",
-            margin: 0,
-            cursor: "pointer",
-          }}
-          onClick={() => setCurrentUser(null)}
-        >
-          Sign out
-        </p>
+        <>
+          <p
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "black",
+              margin: 0,
+              cursor: "pointer",
+            }}
+            onClick={() => setCurrentUser(null)}
+          >
+            Sign out
+          </p>
+          <Link
+            to={`/users/${currentUser.id}`}
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "black",
+            }}
+          >
+            Account
+          </Link>
+        </>
       )}
     </div>
   );
