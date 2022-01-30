@@ -2,7 +2,7 @@ const upload = require("multer")();
 const db = require("../model");
 const nanoid = require("nanoid");
 
-require("../cli/setup_bucket");
+const s3 = require("../cli/setup_bucket")[0];
 module.exports = {
   get_all: (req, res, next) => {
     db.Image.findAll({
