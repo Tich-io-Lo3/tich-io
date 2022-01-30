@@ -19,11 +19,11 @@ fs.readdirSync(__dirname)
     const model = require("./" + filename)(sequelize);
     db[model.name] = model;
   });
+sequelize.sync();
 
 Object.keys(db).forEach((modelName) => {
   db[modelName].associate(db);
 });
 
-sequelize.sync();
 console.log("db done");
 module.exports = db;
