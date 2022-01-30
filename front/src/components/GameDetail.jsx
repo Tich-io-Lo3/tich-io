@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAPI } from "../providers/ApiProviders";
+import Nav from "./Nav";
 
 const GameDetail = () => {
   let { gameId } = useParams();
@@ -16,6 +17,7 @@ const GameDetail = () => {
 
   return (
     <div>
+      <Nav />
       <p>Detail</p>
       <p>{game?.title}</p>
       <p>{game?.description}</p>
