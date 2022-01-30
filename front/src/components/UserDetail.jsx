@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAPI } from "../providers/ApiProviders";
+import { useCurrentUser } from "../providers/CurrentUserProvider";
 import Nav from "./Nav";
 
 const UserDetail = () => {
+  const { currentUser } = useCurrentUser();
   let { userId } = useParams();
   let navigate = useNavigate();
   userId = parseInt(userId);
@@ -42,27 +44,34 @@ const UserDetail = () => {
       <Nav />
       <h4>Details : </h4>
       <p>{user?.name}</p>
-      <h4>Social media : </h4>
-      <ul>
-        {links.map((l) => (
-          <li key={l.id}>
-            <a href={l.link}>{l.service}</a>
-          </li>
-        ))}
-      </ul>
-      <div>
-        <input
-          type="text"
-          value={linkText}
-          onChange={(e) => setLinkText(e.target.value)}
-        />
-        <select value={linkType} onChange={(e) => setLinkType(e.target.value)}>
-          <option value="Facebook">Facebook</option>
-          <option value="Twitter">Twitter</option>
-          <option value="Reddit">Reddit</option>
-        </select>
-        <button onClick={addLink}>Add link</button>
-      </div>
+      {userId === currentUser.id && (
+        <>
+          <h4>Social media : </h4>
+          <ul>
+            {links.map((l) => (
+              <li key={l.id}>
+                <a href={l.link}>{l.service}</a>
+              </li>
+            ))}
+          </ul>
+          <div>
+            <input
+              type="text"
+              value={linkText}
+              onChange={(e) => setLinkText(e.target.value)}
+            />
+            <select
+              value={linkType}
+              onChange={(e) => setLinkType(e.target.value)}
+            >
+              <option value="Facebook">Facebook</option>
+              <option value="Twitter">Twitter</option>
+              <option value="Reddit">Reddit</option>
+            </select>
+            <button onClick={addLink}>Add link</button>
+          </div>
+        </>
+      )}
       <h4>Games created by {user?.username} : </h4>
       <ul>
         {library.map((g, index) => (

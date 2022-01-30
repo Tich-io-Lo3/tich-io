@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../providers/CurrentUserProvider";
 
 const Nav = () => {
+  let navigate = useNavigate();
   const { currentUser, setCurrentUser } = useCurrentUser();
   return (
     <div
@@ -57,18 +58,6 @@ const Nav = () => {
             Create game
           </Link>
 
-          <p
-            style={{
-              textDecoration: "none",
-              fontWeight: "bold",
-              color: "black",
-              margin: 0,
-              cursor: "pointer",
-            }}
-            onClick={() => setCurrentUser(null)}
-          >
-            Sign out
-          </p>
           <Link
             to={`/users/${currentUser.id}`}
             style={{
@@ -79,6 +68,32 @@ const Nav = () => {
           >
             Account
           </Link>
+          <Link
+            to={`/library`}
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "black",
+            }}
+          >
+            Library
+          </Link>
+
+          <p
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "black",
+              margin: 0,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/");
+              setCurrentUser(null);
+            }}
+          >
+            Sign out
+          </p>
         </>
       )}
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { useAPI } from "../providers/ApiProviders";
 import { useCurrentUser } from "../providers/CurrentUserProvider";
 import Nav from "./Nav";
@@ -12,18 +12,21 @@ const Library = () => {
   useEffect(() => {
     useFetch(() => {
       return API.getUserLibrary(currentUser.id);
-    }).then((data) => setLibrary(data));
+    }).then((data) => {
+      data.map((l) => {
+        useFetch(() => {
+          return API.getGameById(l.GameId);
+        }).then((game) => setLibrary((oldLib) => [...oldLib, game]));
+      });
+    });
   }, []);
 
   return (
     <>
       <Nav />
       <ul>
-        {library.map((g) => (
-          <li key={g.id}>
-            {g.title}
-            <Link to={`${g.id}`}>Détails</Link>
-          </li>
+        {library.map((g, index) => (
+          <li key={index}>{g.title}</li>
         ))}
       </ul>
     </>

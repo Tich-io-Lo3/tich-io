@@ -14,6 +14,7 @@ import CreateAccount from "./components/CreateAccount";
 import UserDetail from "./components/UserDetail";
 import Games from "./components/Games";
 import GameDetail from "./components/GameDetail";
+import Library from "./components/Library";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route path="/games" element={<Games />} />
             <Route path="/games/:gameId" element={<GameDetail />} />
             <Route path="/users/:userId" element={<UserDetail />} />
+            <Route path="/library" element={<Library />} />
           </Routes>
         </BrowserRouter>
       </ApiProvider>
