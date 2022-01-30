@@ -15,6 +15,22 @@ module.exports = {
       })
       .catch(next);
   },
+  get_by_creator: (req, res, next) => {
+    return db.Game.findAll({
+      where: {
+        creatorId: {
+          [Op.eq]: req.params.creator_id,
+        },
+      },
+    })
+      .then((game) => {
+        if (!game) {
+          throw { status: 404, message: "Requested Person not found" };
+        }
+        return res.json(game);
+      })
+      .catch(next);
+  },
   delete_by_id: (req, res, next) => {
     return db.Game.findByPk(req.params.game_id)
       .then((game) => {
