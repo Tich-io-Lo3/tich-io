@@ -26,7 +26,7 @@ module.exports = {
     }).then((distribution) => {
       const params = {
         Bucket: process.env.BUCKET_NAME,
-        Key: `${distrib.GameId}_${distrib.os}`,
+        Key: `${distribution.GameId}_${distribution.os}`,
       };
       s3.getObject(params, function (err, data) {
         if (err) {
@@ -41,7 +41,7 @@ module.exports = {
   create: (req, res) => {
     const params = {
       Bucket: process.env.BUCKET_NAME,
-      Key: `${req.body.GameId}_${req.body.os}`, // File name you want to save as in S3
+      Key: `${req.params.GameId}_${req.body.os}`, // File name you want to save as in S3
       Body: req.file.buffer,
     };
     s3.upload(params, function (err, data) {
@@ -51,7 +51,7 @@ module.exports = {
       console.log(`File uploaded successfully. ${data.Location}`);
       db.Distribution.create({
         os: req.body.os,
-        file: `${req.body.GameId}_${req.body.os}`,
+        file: `${req.params.GameId}_${req.body.os}`,
         GameId: req.params.game_id,
         mimeType: req.file.mimeType,
       }).then((distribution) => res.json(distribution).catch(next));
